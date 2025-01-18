@@ -70,6 +70,19 @@ export function DomainSearch() {
     setIsComparing(!isComparing)
   }
 
+  // Helper function to find the original domain data
+  const findDomainData = (domain: string): DomainResult => {
+    const [name, tld] = domain.split('.')
+    const originalDomain = results.find(r => `${r.name}${r.tld}` === domain)
+    return originalDomain || {
+      name,
+      tld: `.${tld}`,
+      available: true,
+      type: 'exact',
+      price: 1200 // Default price if not found
+    }
+  }
+
   return (
     <div className="flex-1 flex flex-col">
       <div className={`flex flex-col items-center ${query ? 'pt-16' : 'justify-center min-h-[calc(100vh-64px)]'}`}>
@@ -121,18 +134,12 @@ export function DomainSearch() {
                 </div>
                 {isComparing ? (
                   <DomainComparison
-                    domains={Array.from(bookmarkedDomains).map(domain => {
-                      const [name, tld] = domain.split('.')
-                      return { name, tld: `.${tld}`, available: true, type: 'exact' }
-                    })}
+                    domains={Array.from(bookmarkedDomains).map(domain => findDomainData(domain))}
                     onClose={toggleCompare}
                   />
                 ) : (
                   <DomainResults 
-                    results={Array.from(bookmarkedDomains).map(domain => {
-                      const [name, tld] = domain.split('.')
-                      return { name, tld: `.${tld}`, available: true, type: 'exact' }
-                    })}
+                    results={Array.from(bookmarkedDomains).map(domain => findDomainData(domain))}
                     bookmarkedDomains={bookmarkedDomains}
                     onBookmark={handleBookmark}
                     onDomainSelect={() => {}}
