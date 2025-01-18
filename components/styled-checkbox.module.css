@@ -1,0 +1,28 @@
+.styledCheckbox {
+  width: 16px !important;
+  height: 16px !important;
+  border: 1px solid #666 !important;
+  border-radius: 4px !important;
+  transition: all 0.15s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.styledCheckbox:hover {
+  border-color: #333 !important;
+}
+
+.styledCheckbox[data-state="checked"] {
+  background: #000 !important;
+  border-color: #000 !important;
+}
+
+.styledCheckbox[data-state="checked"]:hover {
+  background: #333 !important;
+  border-color: #333 !important;
+}
+
+.styledCheckbox[data-disabled] {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
