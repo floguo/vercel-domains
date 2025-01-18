@@ -41,14 +41,35 @@ export function DomainSearch() {
     }
 
     const mockResults: DomainResult[] = [
+      // Popular
       { name: query, tld: '.com', available: false, price: 1200, type: 'exact' },
-      { name: query, tld: '.ai', available: true, price: 17800, type: 'exact', isPremium: true },
-      { name: query, tld: '.app', available: true, price: 1800, type: 'exact' },
-      { name: query, tld: '.dev', available: true, price: 1400, type: 'exact' },
+      { name: query, tld: '.net', available: true, price: 1500, type: 'exact' },
+      { name: query, tld: '.org', available: true, price: 1400, type: 'exact' },
       { name: query, tld: '.io', available: true, price: 4600, type: 'exact' },
-      { name: query, tld: '.xyz', available: true, price: 1300, type: 'exact' },
-      { name: query, tld: '.tech', available: true, price: 4900, type: 'exact' },
       { name: query, tld: '.co', available: true, price: 2700, type: 'exact' },
+      { name: query, tld: '.me', available: true, price: 1950, type: 'exact' },
+      { name: query, tld: '.ai', available: true, price: 17800, type: 'exact', isPremium: true },
+      
+      // Technology
+      { name: query, tld: '.dev', available: true, price: 1400, type: 'exact' },
+      { name: query, tld: '.tech', available: true, price: 4900, type: 'exact' },
+      { name: query, tld: '.app', available: true, price: 1800, type: 'exact' },
+      { name: query, tld: '.codes', available: true, price: 5200, type: 'exact' },
+      
+      // Business
+      { name: query, tld: '.inc', available: true, price: 15800, type: 'exact' },
+      { name: query, tld: '.company', available: true, price: 2600, type: 'exact' },
+      { name: query, tld: '.agency', available: true, price: 2900, type: 'exact' },
+      
+      // Creative
+      { name: query, tld: '.design', available: true, price: 3500, type: 'exact' },
+      { name: query, tld: '.studio', available: true, price: 2900, type: 'exact' },
+      { name: query, tld: '.media', available: true, price: 2200, type: 'exact' },
+      
+      // Others
+      { name: query, tld: '.world', available: true, price: 2900, type: 'exact' },
+      { name: query, tld: '.live', available: true, price: 2300, type: 'exact' },
+      { name: query, tld: '.store', available: true, price: 2100, type: 'exact' },
     ]
 
     setResults(mockResults)
@@ -83,9 +104,41 @@ export function DomainSearch() {
     }
   }
 
+  // Helper function to check if a price falls within a range
+  const isPriceInRange = (price: number | undefined, range: string): boolean => {
+    if (!price) return false
+    switch (range) {
+      case 'under-10':
+        return price <= 1000 // Under $10
+      case 'under-50':
+        return price <= 5000 // Under $50
+      case 'under-100':
+        return price <= 10000 // Under $100
+      case 'premium':
+        return price > 10000 // Over $100
+      default:
+        return true // 'all' or any other value
+    }
+  }
+
+  // Filter results based on current filters
+  const filteredResults = results.filter(result => {
+    // Price filter
+    if (!isPriceInRange(result.price, filters.priceRange)) {
+      return false
+    }
+    
+    // Add other filters here later
+    return true
+  })
+
   return (
     <div className="flex-1 flex flex-col">
-      <div className={`flex flex-col items-center ${query ? 'pt-16' : 'justify-center min-h-[calc(100vh-64px)]'}`}>
+      <div className={`flex flex-col items-center ${
+        query 
+          ? 'pt-16' 
+          : 'justify-center min-h-[calc(100vh-64px)] -mt-16'
+      }`}>
         <div className="w-full max-w-[800px] space-y-6 px-6">
           {!query && (
             <h1 className="text-center text-4xl tracking-tight">
@@ -118,7 +171,7 @@ export function DomainSearch() {
               <TabsContent value="results">
                 <DomainFilters filters={filters} onFiltersChange={setFilters} />
                 <DomainResults 
-                  results={results}
+                  results={filteredResults}
                   bookmarkedDomains={bookmarkedDomains}
                   onBookmark={handleBookmark}
                   onDomainSelect={() => {}}

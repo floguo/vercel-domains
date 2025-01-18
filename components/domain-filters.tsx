@@ -25,32 +25,27 @@ interface DomainFiltersProps {
 }
 
 export function DomainFilters({ filters, onFiltersChange }: DomainFiltersProps) {
-  const updateFilter = (key: keyof Filters, value: any) => {
-    onFiltersChange({ ...filters, [key]: value })
-  }
-
   return (
-    <div className="flex items-center justify-between w-full mb-6 space-x-2">
+    <div className="flex gap-2 mb-4">
       <Select
         value={filters.priceRange}
-        onValueChange={(value) => updateFilter('priceRange', value)}
+        onValueChange={(value) => onFiltersChange({ ...filters, priceRange: value })}
       >
-        <SelectTrigger className="h-9 text-sm">
-          <SelectValue placeholder="Price range" />
+        <SelectTrigger className="w-[150px]">
+          <SelectValue placeholder="All prices" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">All prices</SelectItem>
-          <SelectItem value="0-50">Under $50</SelectItem>
-          <SelectItem value="50-100">$50 - $100</SelectItem>
-          <SelectItem value="100-500">$100 - $500</SelectItem>
-          <SelectItem value="500+">$500+</SelectItem>
-          <SelectItem value="premium">Premium domains</SelectItem>
+          <SelectItem value="under-10">Under $10</SelectItem>
+          <SelectItem value="under-50">Under $50</SelectItem>
+          <SelectItem value="under-100">Under $100</SelectItem>
+          <SelectItem value="premium">Premium ($100+)</SelectItem>
         </SelectContent>
       </Select>
 
       <Select
         value={filters.tldCategory}
-        onValueChange={(value) => updateFilter('tldCategory', value)}
+        onValueChange={(value) => onFiltersChange({ ...filters, tldCategory: value })}
       >
         <SelectTrigger className="h-9 text-sm">
           <SelectValue placeholder="TLD Category" />
@@ -66,7 +61,7 @@ export function DomainFilters({ filters, onFiltersChange }: DomainFiltersProps) 
 
       <Select
         value={filters.availability}
-        onValueChange={(value) => updateFilter('availability', value)}
+        onValueChange={(value) => onFiltersChange({ ...filters, availability: value })}
       >
         <SelectTrigger className="h-9 text-sm">
           <SelectValue placeholder="Availability" />
