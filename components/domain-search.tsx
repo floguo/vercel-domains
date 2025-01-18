@@ -71,8 +71,8 @@ export function DomainSearch() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen h-screen overflow-hidden px-6">
-      <div className="w-full max-w-[800px] space-y-6 overflow-y-auto">
+    <div className={`flex-1 flex flex-col items-center ${query ? 'justify-start pt-12' : 'justify-center'} min-h-screen px-6`}>
+      <div className={`w-full max-w-[800px] space-y-6 ${query ? 'mb-6' : 'mb-12'}`}>
         <h1 className="text-center text-4xl tracking-tight">
           Find Your Perfect Domain
         </h1>

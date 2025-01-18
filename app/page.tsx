@@ -3,9 +3,11 @@ import { DomainSearch } from '../components/domain-search'
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="h-screen bg-background flex flex-col">
       <Nav />
-      <DomainSearch />
+      <div className="flex-1 container">
+        <DomainSearch />
+      </div>
     </div>
   )
 }
