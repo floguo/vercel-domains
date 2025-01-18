@@ -134,12 +134,12 @@ export function DomainSearch() {
 
   return (
     <div className="flex-1 flex flex-col">
-      <div className={`flex flex-col items-center ${
+      <div className={`flex flex-col ${
         query 
           ? 'pt-16' 
-          : 'justify-center min-h-[calc(100vh-64px)] -mt-16'
+          : 'items-center justify-center min-h-[calc(100vh-64px)] -mt-16'
       }`}>
-        <div className="w-full max-w-[800px] space-y-6 px-6">
+        <div className={`${query ? 'w-full max-w-[1400px] mx-auto' : 'w-full max-w-[800px]'} px-6 space-y-6`}>
           {!query && (
             <h1 className="text-center text-4xl tracking-tight">
               Find Your Perfect Domain
@@ -158,7 +158,7 @@ export function DomainSearch() {
         </div>
 
         {query && (
-          <div className="w-full max-w-[800px] px-6 mt-6">
+          <div className="w-full max-w-[1400px] mx-auto px-6 mt-6">
             <Tabs defaultValue="results" className="w-full">
               <TabsList className="w-full justify-start mb-6">
                 <TabsTrigger value="results" className="flex-1">Search Results</TabsTrigger>

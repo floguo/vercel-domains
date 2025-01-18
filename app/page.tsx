@@ -5,7 +5,7 @@ export default function Page() {
   return (
     <div className="h-screen bg-background flex flex-col">
       <Nav />
-      <div className="flex-1 container">
+      <div className="flex-1">
         <DomainSearch />
       </div>
     </div>
