@@ -71,78 +71,82 @@ export function DomainSearch() {
   }
 
   return (
-    <div className={`flex-1 flex flex-col items-center ${query ? 'justify-start pt-12' : 'justify-center'} min-h-screen px-6`}>
-      <div className={`w-full max-w-[800px] space-y-6 ${query ? 'mb-6' : 'mb-12'}`}>
-        <h1 className="text-center text-4xl tracking-tight">
-          Find Your Perfect Domain
-        </h1>
-        <div className="relative">
-          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-          <Input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search for domains..."
-            className="w-full h-12 pl-11 pr-4 text-lg"
-          />
+    <div className="flex-1 flex flex-col">
+      <div className={`flex flex-col items-center ${query ? 'pt-16' : 'justify-center min-h-[calc(100vh-64px)]'}`}>
+        <div className="w-full max-w-[800px] space-y-6 px-6">
+          {!query && (
+            <h1 className="text-center text-4xl tracking-tight">
+              Find Your Perfect Domain
+            </h1>
+          )}
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+            <Input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search for domains..."
+              className="w-full h-12 pl-11 pr-4 text-lg"
+            />
+          </div>
         </div>
-      </div>
 
-      {query && (
-        <div className="w-full max-w-[800px]">
-          <Tabs defaultValue="results" className="w-full">
-            <TabsList className="w-full justify-start mb-6">
-              <TabsTrigger value="results" className="flex-1">Search Results</TabsTrigger>
-              <TabsTrigger value="bookmarks" className="flex-1">
-                Bookmarked ({bookmarkedDomains.size})
-              </TabsTrigger>
-              <TabsTrigger value="social" className="flex-1">Social Handles</TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="results">
-              <DomainFilters filters={filters} onFiltersChange={setFilters} />
-              <DomainResults 
-                results={results}
-                bookmarkedDomains={bookmarkedDomains}
-                onBookmark={handleBookmark}
-                onDomainSelect={() => {}}
-              />
-            </TabsContent>
-
-            <TabsContent value="bookmarks">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl">Bookmarked Domains</h2>
-                <Button onClick={toggleCompare} disabled={bookmarkedDomains.size < 2}>
-                  {isComparing ? 'Exit Comparison' : 'Compare Domains'}
-                </Button>
-              </div>
-              {isComparing ? (
-                <DomainComparison
-                  domains={Array.from(bookmarkedDomains).map(domain => {
-                    const [name, tld] = domain.split('.')
-                    return { name, tld: `.${tld}`, available: true, type: 'exact' }
-                  })}
-                  onClose={toggleCompare}
-                />
-              ) : (
+        {query && (
+          <div className="w-full max-w-[800px] px-6 mt-6">
+            <Tabs defaultValue="results" className="w-full">
+              <TabsList className="w-full justify-start mb-6">
+                <TabsTrigger value="results" className="flex-1">Search Results</TabsTrigger>
+                <TabsTrigger value="bookmarks" className="flex-1">
+                  Bookmarked ({bookmarkedDomains.size})
+                </TabsTrigger>
+                <TabsTrigger value="social" className="flex-1">Social Handles</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="results">
+                <DomainFilters filters={filters} onFiltersChange={setFilters} />
                 <DomainResults 
-                  results={Array.from(bookmarkedDomains).map(domain => {
-                    const [name, tld] = domain.split('.')
-                    return { name, tld: `.${tld}`, available: true, type: 'exact' }
-                  })}
+                  results={results}
                   bookmarkedDomains={bookmarkedDomains}
                   onBookmark={handleBookmark}
                   onDomainSelect={() => {}}
                 />
-              )}
-            </TabsContent>
+              </TabsContent>
 
-            <TabsContent value="social">
-              <SocialHandleChecker />
-            </TabsContent>
-          </Tabs>
-        </div>
-      )}
+              <TabsContent value="bookmarks">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-2xl">Bookmarked Domains</h2>
+                  <Button onClick={toggleCompare} disabled={bookmarkedDomains.size < 2}>
+                    {isComparing ? 'Exit Comparison' : 'Compare Domains'}
+                  </Button>
+                </div>
+                {isComparing ? (
+                  <DomainComparison
+                    domains={Array.from(bookmarkedDomains).map(domain => {
+                      const [name, tld] = domain.split('.')
+                      return { name, tld: `.${tld}`, available: true, type: 'exact' }
+                    })}
+                    onClose={toggleCompare}
+                  />
+                ) : (
+                  <DomainResults 
+                    results={Array.from(bookmarkedDomains).map(domain => {
+                      const [name, tld] = domain.split('.')
+                      return { name, tld: `.${tld}`, available: true, type: 'exact' }
+                    })}
+                    bookmarkedDomains={bookmarkedDomains}
+                    onBookmark={handleBookmark}
+                    onDomainSelect={() => {}}
+                  />
+                )}
+              </TabsContent>
+
+              <TabsContent value="social">
+                <SocialHandleChecker />
+              </TabsContent>
+            </Tabs>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
