@@ -12,32 +12,30 @@ const PLATFORMS = [
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method Not Allowed' })
+    return res.status(405).json({ error: 'Method not allowed' })
   }
 
   const { handle } = req.body
 
   if (!handle) {
-    return res.status(400).json({ message: 'Handle is required' })
+    return res.status(400).json({ error: 'Handle is required' })
   }
 
   try {
     const results = await Promise.all(
       PLATFORMS.map(async (platform) => {
-        const url = `${platform.url}${handle}`
-        const response = await fetch(url, { method: 'HEAD' })
+        const response = await fetch(`${platform.url}${handle}`)
         return {
           platform: platform.name,
-          available: response.status === 404,
-          url,
+          available: response.status === 404
         }
       })
     )
 
-    res.status(200).json(results)
+    return res.status(200).json(results)
   } catch (error) {
-    console.error('Error checking social handles:', error)
-    res.status(500).json({ message: 'Internal Server Error' })
+    console.error('Error checking handles:', error)
+    return res.status(500).json({ error: 'Failed to check handles' })
   }
 }
 

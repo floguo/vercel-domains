@@ -14,7 +14,7 @@ interface DomainResultsProps {
   results: DomainResult[]
   bookmarkedDomains: Set<string>
   onBookmark: (domain: string) => void
-  onDomainSelect: (domain: string) => void
+  onDomainSelect: (domain: DomainResult) => void
 }
 
 export function DomainResults({
