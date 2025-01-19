@@ -132,6 +132,9 @@ export function DomainSearch() {
     return true
   })
 
+  // Extract handle from query (remove TLD if present)
+  const handle = query.split('.')[0]
+
   return (
     <div className="flex-1 flex flex-col">
       <div className={`flex flex-col ${
@@ -160,7 +163,7 @@ export function DomainSearch() {
         {query && (
           <div className="w-full max-w-[1400px] mx-auto px-6 mt-6">
             <Tabs defaultValue="results" className="w-full">
-              <TabsList className="w-full justify-start mb-6">
+              <TabsList className="w-full justify-start">
                 <TabsTrigger value="results" className="flex-1">Search Results</TabsTrigger>
                 <TabsTrigger value="bookmarks" className="flex-1">
                   Bookmarked ({bookmarkedDomains.size})
@@ -168,41 +171,52 @@ export function DomainSearch() {
                 <TabsTrigger value="social" className="flex-1">Social Handles</TabsTrigger>
               </TabsList>
               
-              <TabsContent value="results">
-                <DomainFilters filters={filters} onFiltersChange={setFilters} />
-                <DomainResults 
-                  results={filteredResults}
-                  bookmarkedDomains={bookmarkedDomains}
-                  onBookmark={handleBookmark}
-                  onDomainSelect={() => {}}
-                />
-              </TabsContent>
+              <div className="mt-6 tabs-container">
+                <TabsContent value="results">
+                  <div className="space-y-6">
+                    <DomainFilters filters={filters} onFiltersChange={setFilters} />
+                    <DomainResults 
+                      results={filteredResults}
+                      bookmarkedDomains={bookmarkedDomains}
+                      onBookmark={handleBookmark}
+                      onDomainSelect={() => {}}
+                    />
+                  </div>
+                </TabsContent>
 
-              <TabsContent value="bookmarks">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-2xl">Bookmarked Domains</h2>
-                  <Button onClick={toggleCompare} disabled={bookmarkedDomains.size < 2}>
-                    {isComparing ? 'Exit Comparison' : 'Compare Domains'}
-                  </Button>
-                </div>
-                {isComparing ? (
-                  <DomainComparison
-                    domains={Array.from(bookmarkedDomains).map(domain => findDomainData(domain))}
-                    onClose={toggleCompare}
-                  />
-                ) : (
-                  <DomainResults 
-                    results={Array.from(bookmarkedDomains).map(domain => findDomainData(domain))}
-                    bookmarkedDomains={bookmarkedDomains}
-                    onBookmark={handleBookmark}
-                    onDomainSelect={() => {}}
-                  />
-                )}
-              </TabsContent>
+                <TabsContent value="bookmarks">
+                  <div className="space-y-6">
+                    <div className="flex justify-between items-center">
+                      <h2 className="text-2xl">Bookmarked Domains</h2>
+                      <Button onClick={toggleCompare} disabled={bookmarkedDomains.size < 2}>
+                        {isComparing ? 'Exit Comparison' : 'Compare Domains'}
+                      </Button>
+                    </div>
+                    {isComparing ? (
+                      <DomainComparison
+                        domains={Array.from(bookmarkedDomains).map(domain => findDomainData(domain))}
+                        onClose={toggleCompare}
+                      />
+                    ) : (
+                      <DomainResults 
+                        results={Array.from(bookmarkedDomains).map(domain => findDomainData(domain))}
+                        bookmarkedDomains={bookmarkedDomains}
+                        onBookmark={handleBookmark}
+                        onDomainSelect={() => {}}
+                      />
+                    )}
+                  </div>
+                </TabsContent>
 
-              <TabsContent value="social">
-                <SocialHandleChecker />
-              </TabsContent>
+                <TabsContent value="social">
+                  <div className="space-y-6">
+                    <div className="flex justify-between items-center">
+                      <h2 className="text-2xl">Social Handle Availability</h2>
+                    </div>
+                    <SocialHandleChecker handle={handle} />
+                  </div>
+                </TabsContent>
+              </div>
             </Tabs>
           </div>
         )}

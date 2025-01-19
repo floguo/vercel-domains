@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Bookmark } from 'lucide-react'
 import { Card } from "@/components/ui/card"
-import { StyledCheckbox } from './ui/styled-checkbox'
+import { Checkbox } from '@/components/ui/checkbox'
 
 interface BookmarksViewProps {
   bookmarkedDomains: Set<string>
@@ -56,7 +56,7 @@ export function BookmarksView({
               onClick={() => onSelectDomain(domain)}
             >
               <div className="flex items-center gap-4">
-                <StyledCheckbox
+                <Checkbox
                   checked={selectedDomains.has(domain)}
                   onCheckedChange={() => onToggleSelect(domain)}
                 />

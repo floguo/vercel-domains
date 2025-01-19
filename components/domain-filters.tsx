@@ -26,12 +26,12 @@ interface DomainFiltersProps {
 
 export function DomainFilters({ filters, onFiltersChange }: DomainFiltersProps) {
   return (
-    <div className="flex gap-2 mb-4">
+    <div className="flex flex-wrap gap-2 mb-4">
       <Select
         value={filters.priceRange}
         onValueChange={(value) => onFiltersChange({ ...filters, priceRange: value })}
       >
-        <SelectTrigger className="w-[150px]">
+        <SelectTrigger className="w-[120px]">
           <SelectValue placeholder="All prices" />
         </SelectTrigger>
         <SelectContent>
@@ -47,8 +47,8 @@ export function DomainFilters({ filters, onFiltersChange }: DomainFiltersProps) 
         value={filters.tldCategory}
         onValueChange={(value) => onFiltersChange({ ...filters, tldCategory: value })}
       >
-        <SelectTrigger className="h-9 text-sm">
-          <SelectValue placeholder="TLD Category" />
+        <SelectTrigger className="w-[120px]">
+          <SelectValue placeholder="All TLDs" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">All TLDs</SelectItem>
@@ -63,7 +63,7 @@ export function DomainFilters({ filters, onFiltersChange }: DomainFiltersProps) 
         value={filters.availability}
         onValueChange={(value) => onFiltersChange({ ...filters, availability: value })}
       >
-        <SelectTrigger className="h-9 text-sm">
+        <SelectTrigger className="w-[120px]">
           <SelectValue placeholder="Availability" />
         </SelectTrigger>
         <SelectContent>
@@ -75,7 +75,7 @@ export function DomainFilters({ filters, onFiltersChange }: DomainFiltersProps) 
       </Select>
 
       <Select defaultValue="relevant">
-        <SelectTrigger className="h-9 text-sm">
+        <SelectTrigger className="w-[160px]">
           <SelectValue placeholder="Sort by" />
         </SelectTrigger>
         <SelectContent>

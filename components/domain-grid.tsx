@@ -12,7 +12,7 @@ interface DomainResult {
   category?: string
 }
 
-// Add this before TLD_CATEGORIES definition
+// Move type definition before TLD_CATEGORIES
 type CategoryKey = keyof typeof TLD_CATEGORIES
 
 // Define TLD categories
@@ -86,9 +86,9 @@ export function DomainGrid({
       {Object.entries(groupedResults).map(([category, domains]) => (
         <section key={category} className="space-y-3">
           <h3 className="text-sm font-medium text-muted-foreground">
-            {TLD_CATEGORIES[category]?.title || 'Other TLDs'}
+            {TLD_CATEGORIES[category as CategoryKey]?.title || 'Other TLDs'}
           </h3>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {domains.map((result) => {
               const domain = `${result.name}${result.tld}`
               const isBookmarked = bookmarkedDomains.has(domain)
@@ -96,7 +96,7 @@ export function DomainGrid({
               return (
                 <div 
                   key={domain} 
-                  className="relative group p-3 rounded-lg border hover:border-foreground cursor-pointer"
+                  className="relative group p-3 rounded-lg border hover:border-foreground/30 hover:shadow-[0_2px_8px_0_rgba(0,0,0,0.04)] transition-all cursor-pointer"
                   onClick={() => onDomainSelect(result)}
                 >
                   <div className="absolute right-2 top-2.5">
