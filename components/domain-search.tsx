@@ -9,6 +9,9 @@ import { SocialHandleChecker } from './social-handle-checker'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Switch } from "@/components/ui/switch"
+import { Label } from "@/components/ui/label"
+import { DomainCard } from './domain-card'
 
 interface DomainResult {
   name: string
@@ -21,7 +24,17 @@ interface DomainResult {
   description?: string
 }
 
+interface DomainSuggestion {
+  name: string
+  tld: string
+  type: 'exact' | 'hack' | 'semantic' | 'creative'
+  available: boolean
+  price?: number
+  explanation?: string // To explain why this suggestion is relevant
+}
+
 export function DomainSearch() {
+  const [searchMode, setSearchMode] = useState<'tld' | 'semantic'>('tld')
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<DomainResult[]>([])
   const [bookmarkedDomains, setBookmarkedDomains] = useState<Set<string>>(new Set())
@@ -32,6 +45,17 @@ export function DomainSearch() {
     maxLength: 63,
     availability: 'all',
     special: false,
+  })
+  const [semanticResults, setSemanticResults] = useState<{
+    hacks: DomainSuggestion[]
+    synonyms: DomainSuggestion[]
+    related: DomainSuggestion[]
+    brandable: DomainSuggestion[]
+  }>({
+    hacks: [],
+    synonyms: [],
+    related: [],
+    brandable: []
   })
 
   useEffect(() => {
@@ -55,25 +79,117 @@ export function DomainSearch() {
       { name: query, tld: '.tech', available: true, price: 4900, type: 'exact' },
       { name: query, tld: '.app', available: true, price: 1800, type: 'exact' },
       { name: query, tld: '.codes', available: true, price: 5200, type: 'exact' },
+      { name: query, tld: '.digital', available: true, price: 2900, type: 'exact' },
+      { name: query, tld: '.network', available: true, price: 1800, type: 'exact' },
+      { name: query, tld: '.systems', available: true, price: 1900, type: 'exact' },
       
       // Business
       { name: query, tld: '.inc', available: true, price: 15800, type: 'exact' },
       { name: query, tld: '.company', available: true, price: 2600, type: 'exact' },
+      { name: query, tld: '.business', available: true, price: 2200, type: 'exact' },
       { name: query, tld: '.agency', available: true, price: 2900, type: 'exact' },
+      { name: query, tld: '.consulting', available: true, price: 3100, type: 'exact' },
+      { name: query, tld: '.management', available: true, price: 2400, type: 'exact' },
       
-      // Creative
+      // Creative & Media
       { name: query, tld: '.design', available: true, price: 3500, type: 'exact' },
       { name: query, tld: '.studio', available: true, price: 2900, type: 'exact' },
       { name: query, tld: '.media', available: true, price: 2200, type: 'exact' },
+      { name: query, tld: '.art', available: true, price: 1500, type: 'exact' },
+      { name: query, tld: '.photography', available: true, price: 2100, type: 'exact' },
+      { name: query, tld: '.gallery', available: true, price: 2000, type: 'exact' },
       
-      // Others
+      // E-commerce
+      { name: query, tld: '.shop', available: true, price: 2800, type: 'exact' },
+      { name: query, tld: '.store', available: true, price: 2100, type: 'exact' },
+      { name: query, tld: '.market', available: true, price: 3200, type: 'exact' },
+      { name: query, tld: '.shopping', available: true, price: 2900, type: 'exact' },
+      
+      // Other
       { name: query, tld: '.world', available: true, price: 2900, type: 'exact' },
       { name: query, tld: '.live', available: true, price: 2300, type: 'exact' },
-      { name: query, tld: '.store', available: true, price: 2100, type: 'exact' },
+      { name: query, tld: '.guide', available: true, price: 2500, type: 'exact' },
+      { name: query, tld: '.plus', available: true, price: 2700, type: 'exact' },
+      { name: query, tld: '.club', available: true, price: 1200, type: 'exact' },
+      { name: query, tld: '.zone', available: true, price: 2400, type: 'exact' }
     ]
 
     setResults(mockResults)
   }, [query])
+
+  // When query changes, generate semantic suggestions
+  useEffect(() => {
+    if (!query || !searchMode) return
+    
+    const generateSemanticResults = async () => {
+      // This would be an API call in production
+      const suggestions = {
+        hacks: [
+          { 
+            name: 'codefa', 
+            tld: '.st', 
+            type: 'hack',
+            available: true,
+            price: 2900,
+            explanation: 'Domain hack for "codefast"'
+          }
+        ],
+        synonyms: [
+          {
+            name: 'swift',
+            tld: '.dev',
+            type: 'semantic',
+            available: true,
+            price: 1400,
+            explanation: 'Synonym for "fast" in development context'
+          }
+        ],
+        related: [
+          {
+            name: 'speedup',
+            tld: '.app',
+            type: 'semantic',
+            available: true,
+            price: 1800,
+            explanation: 'Related to performance and speed'
+          }
+        ],
+        brandable: [
+          {
+            name: 'velocode',
+            tld: '.com',
+            type: 'creative',
+            available: true,
+            price: 1200,
+            explanation: 'Blend of "velocity" and "code"'
+          }
+        ]
+      }
+      
+      setSemanticResults({
+        hacks: suggestions.hacks.map(hack => ({
+          ...hack,
+          type: 'hack' as const
+        })),
+        synonyms: suggestions.synonyms.map(syn => ({
+          ...syn,
+          type: 'semantic' as const
+        })),
+        related: suggestions.related.map(rel => ({
+          ...rel,
+          type: 'semantic' as const
+        })),
+        brandable: suggestions.brandable.map(brand => ({
+          ...brand,
+          type: 'creative' as const
+        }))
+      })
+    }
+
+    if (searchMode === 'semantic') {
+      generateSemanticResults()
+    }
+  }, [query, searchMode])
 
   const handleBookmark = (domain: string) => {
     setBookmarkedDomains(prev => {
@@ -174,13 +290,98 @@ export function DomainSearch() {
               <div className="mt-6 tabs-container">
                 <TabsContent value="results">
                   <div className="space-y-6">
-                    <DomainFilters filters={filters} onFiltersChange={setFilters} />
-                    <DomainResults 
-                      results={filteredResults}
-                      bookmarkedDomains={bookmarkedDomains}
-                      onBookmark={handleBookmark}
-                      onDomainSelect={() => {}}
-                    />
+                    <div className="flex items-center justify-between">
+                      <DomainFilters filters={filters} onFiltersChange={setFilters} />
+                      <div className="flex items-center gap-2">
+                        <Label htmlFor="search-mode" className="text-sm text-muted-foreground">
+                          Semantic search
+                        </Label>
+                        <Switch
+                          id="search-mode"
+                          checked={searchMode === 'semantic'}
+                          onCheckedChange={(checked) => setSearchMode(checked ? 'semantic' : 'tld')}
+                        />
+                      </div>
+                    </div>
+
+                    {searchMode === 'semantic' ? (
+                      <div className="space-y-8">
+                        {/* Domain Hacks */}
+                        <section className="space-y-3">
+                          <h3 className="text-sm font-medium text-muted-foreground">Domain Hacks</h3>
+                          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                            {semanticResults.hacks.map(result => (
+                              <DomainCard 
+                                key={result.name + result.tld}
+                                result={result}
+                                bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
+                                onBookmark={handleBookmark}
+                                onSelect={() => {}}
+                                showExplanation
+                              />
+                            ))}
+                          </div>
+                        </section>
+
+                        {/* Synonyms */}
+                        <section className="space-y-3">
+                          <h3 className="text-sm font-medium text-muted-foreground">Similar Words</h3>
+                          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                            {semanticResults.synonyms.map(result => (
+                              <DomainCard 
+                                key={result.name + result.tld}
+                                result={result}
+                                bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
+                                onBookmark={handleBookmark}
+                                onSelect={() => {}}
+                                showExplanation
+                              />
+                            ))}
+                          </div>
+                        </section>
+
+                        {/* Related Concepts */}
+                        <section className="space-y-3">
+                          <h3 className="text-sm font-medium text-muted-foreground">Related Ideas</h3>
+                          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                            {semanticResults.related.map(result => (
+                              <DomainCard 
+                                key={result.name + result.tld}
+                                result={result}
+                                bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
+                                onBookmark={handleBookmark}
+                                onSelect={() => {}}
+                                showExplanation
+                              />
+                            ))}
+                          </div>
+                        </section>
+
+                        {/* Brandable Names */}
+                        <section className="space-y-3">
+                          <h3 className="text-sm font-medium text-muted-foreground">Brandable Names</h3>
+                          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                            {semanticResults.brandable.map(result => (
+                              <DomainCard 
+                                key={result.name + result.tld}
+                                result={result}
+                                bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
+                                onBookmark={handleBookmark}
+                                onSelect={() => {}}
+                                showExplanation
+                              />
+                            ))}
+                          </div>
+                        </section>
+                      </div>
+                    ) : (
+                      <DomainResults 
+                        results={filteredResults}
+                        bookmarkedDomains={bookmarkedDomains}
+                        onBookmark={handleBookmark}
+                        onDomainSelect={() => {}}
+                      />
+                    )}
                   </div>
                 </TabsContent>
 

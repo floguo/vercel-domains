@@ -26,7 +26,7 @@ interface DomainFiltersProps {
 
 export function DomainFilters({ filters, onFiltersChange }: DomainFiltersProps) {
   return (
-    <div className="flex flex-wrap gap-2 mb-4">
+    <div className="flex flex-wrap gap-2">
       <Select
         value={filters.priceRange}
         onValueChange={(value) => onFiltersChange({ ...filters, priceRange: value })}
