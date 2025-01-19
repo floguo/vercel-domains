@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { DomainCard } from './domain-card'
+import { generateSemanticSuggestions } from '@/lib/semantic-suggestions'
 
 interface DomainResult {
   name: string
@@ -57,6 +58,7 @@ export function DomainSearch() {
     related: [],
     brandable: []
   })
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if (!query) {
@@ -122,68 +124,16 @@ export function DomainSearch() {
     if (!query || !searchMode) return
     
     const generateSemanticResults = async () => {
-      // This would be an API call in production
-      const suggestions = {
-        hacks: [
-          { 
-            name: 'codefa', 
-            tld: '.st', 
-            type: 'hack',
-            available: true,
-            price: 2900,
-            explanation: 'Domain hack for "codefast"'
-          }
-        ],
-        synonyms: [
-          {
-            name: 'swift',
-            tld: '.dev',
-            type: 'semantic',
-            available: true,
-            price: 1400,
-            explanation: 'Synonym for "fast" in development context'
-          }
-        ],
-        related: [
-          {
-            name: 'speedup',
-            tld: '.app',
-            type: 'semantic',
-            available: true,
-            price: 1800,
-            explanation: 'Related to performance and speed'
-          }
-        ],
-        brandable: [
-          {
-            name: 'velocode',
-            tld: '.com',
-            type: 'creative',
-            available: true,
-            price: 1200,
-            explanation: 'Blend of "velocity" and "code"'
-          }
-        ]
+      try {
+        setIsLoading(true) // Add loading state if you want
+        const suggestions = await generateSemanticSuggestions(query)
+        setSemanticResults(suggestions)
+      } catch (error) {
+        console.error('Failed to get semantic suggestions:', error)
+        // Optionally show error to user
+      } finally {
+        setIsLoading(false)
       }
-      
-      setSemanticResults({
-        hacks: suggestions.hacks.map(hack => ({
-          ...hack,
-          type: 'hack' as const
-        })),
-        synonyms: suggestions.synonyms.map(syn => ({
-          ...syn,
-          type: 'semantic' as const
-        })),
-        related: suggestions.related.map(rel => ({
-          ...rel,
-          type: 'semantic' as const
-        })),
-        brandable: suggestions.brandable.map(brand => ({
-          ...brand,
-          type: 'creative' as const
-        }))
-      })
     }
 
     if (searchMode === 'semantic') {
