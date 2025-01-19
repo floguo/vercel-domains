@@ -60,16 +60,14 @@ export async function POST(request: Request) {
       )
     }
 
-    const [meaningLike, triggers, soundsLike] = await Promise.all([
+    const [meaningLike, soundsLike] = await Promise.all([
       fetch(`${DATAMUSE_BASE}/words?ml=${query}&max=5`).then(r => r.json()),
-      fetch(`${DATAMUSE_BASE}/words?rel_trg=${query}&max=5`).then(r => r.json()),
       fetch(`${DATAMUSE_BASE}/words?sl=${query}&max=5`).then(r => r.json()),
     ])
 
     return NextResponse.json({
       hacks: generateDomainHacks(query),
       synonyms: formatSuggestions(meaningLike, 'semantic'),
-      related: formatSuggestions(triggers, 'semantic'),
       brandable: formatSuggestions(soundsLike, 'creative')
     })
   } catch (error) {

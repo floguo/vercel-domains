@@ -50,12 +50,10 @@ export function DomainSearch() {
   const [semanticResults, setSemanticResults] = useState<{
     hacks: DomainSuggestion[]
     synonyms: DomainSuggestion[]
-    related: DomainSuggestion[]
     brandable: DomainSuggestion[]
   }>({
     hacks: [],
     synonyms: [],
-    related: [],
     brandable: []
   })
   const [isLoading, setIsLoading] = useState(false)
@@ -260,16 +258,22 @@ export function DomainSearch() {
                         <section className="space-y-3">
                           <h3 className="text-sm font-medium text-muted-foreground">Domain Hacks</h3>
                           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                            {semanticResults.hacks.map(result => (
-                              <DomainCard 
-                                key={result.name + result.tld}
-                                result={result}
-                                bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
-                                onBookmark={handleBookmark}
-                                onSelect={() => {}}
-                                showExplanation
-                              />
-                            ))}
+                            {semanticResults.hacks.length > 0 ? (
+                              semanticResults.hacks.map(result => (
+                                <DomainCard 
+                                  key={result.name + result.tld}
+                                  result={result}
+                                  bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
+                                  onBookmark={handleBookmark}
+                                  onSelect={() => {}}
+                                  showExplanation
+                                />
+                              ))
+                            ) : (
+                              <div className="col-span-full py-8 text-center text-sm text-muted-foreground">
+                                No domain hacks available for "{query}"
+                              </div>
+                            )}
                           </div>
                         </section>
 
@@ -277,33 +281,22 @@ export function DomainSearch() {
                         <section className="space-y-3">
                           <h3 className="text-sm font-medium text-muted-foreground">Similar Words</h3>
                           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                            {semanticResults.synonyms.map(result => (
-                              <DomainCard 
-                                key={result.name + result.tld}
-                                result={result}
-                                bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
-                                onBookmark={handleBookmark}
-                                onSelect={() => {}}
-                                showExplanation
-                              />
-                            ))}
-                          </div>
-                        </section>
-
-                        {/* Related Concepts */}
-                        <section className="space-y-3">
-                          <h3 className="text-sm font-medium text-muted-foreground">Related Ideas</h3>
-                          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                            {semanticResults.related.map(result => (
-                              <DomainCard 
-                                key={result.name + result.tld}
-                                result={result}
-                                bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
-                                onBookmark={handleBookmark}
-                                onSelect={() => {}}
-                                showExplanation
-                              />
-                            ))}
+                            {semanticResults.synonyms.length > 0 ? (
+                              semanticResults.synonyms.map(result => (
+                                <DomainCard 
+                                  key={result.name + result.tld}
+                                  result={result}
+                                  bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
+                                  onBookmark={handleBookmark}
+                                  onSelect={() => {}}
+                                  showExplanation
+                                />
+                              ))
+                            ) : (
+                              <div className="col-span-full py-8 text-center text-sm text-muted-foreground">
+                                No similar words found for "{query}"
+                              </div>
+                            )}
                           </div>
                         </section>
 
@@ -311,16 +304,22 @@ export function DomainSearch() {
                         <section className="space-y-3">
                           <h3 className="text-sm font-medium text-muted-foreground">Brandable Names</h3>
                           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                            {semanticResults.brandable.map(result => (
-                              <DomainCard 
-                                key={result.name + result.tld}
-                                result={result}
-                                bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
-                                onBookmark={handleBookmark}
-                                onSelect={() => {}}
-                                showExplanation
-                              />
-                            ))}
+                            {semanticResults.brandable.length > 0 ? (
+                              semanticResults.brandable.map(result => (
+                                <DomainCard 
+                                  key={result.name + result.tld}
+                                  result={result}
+                                  bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
+                                  onBookmark={handleBookmark}
+                                  onSelect={() => {}}
+                                  showExplanation
+                                />
+                              ))
+                            ) : (
+                              <div className="col-span-full py-8 text-center text-sm text-muted-foreground">
+                                No brandable variations found for "{query}"
+                              </div>
+                            )}
                           </div>
                         </section>
                       </div>
