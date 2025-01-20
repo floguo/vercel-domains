@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
+import { ExternalLink } from 'lucide-react'
 
 interface SocialHandleCheckerProps {
   handle: string
 }
 
+interface SocialResult {
+  platform: string
+  available: boolean
+  url?: string
+}
+
 export function SocialHandleChecker({ handle }: SocialHandleCheckerProps) {
-  const [results, setResults] = useState<Array<{ platform: string; available: boolean }>>([
-  ])
+  const [results, setResults] = useState<SocialResult[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -45,20 +51,33 @@ export function SocialHandleChecker({ handle }: SocialHandleCheckerProps) {
           </div>
         ))
       ) : (
-        results.map(({ platform, available }) => (
+        results.map(({ platform, available, url }) => (
           <div
             key={platform}
             className="flex items-center justify-between p-3 rounded-lg border border-border bg-white"
           >
             <span className="text-sm font-medium">{platform}</span>
-            <span className={cn(
-              "text-xs px-2 py-0.5 rounded-full font-medium",
-              available 
-                ? "bg-green-50 text-green-800" 
-                : "bg-red-50 text-red-700"
-            )}>
-              {available ? 'Available' : 'Taken'}
-            </span>
+            {available ? (
+              <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-green-50 text-green-800">
+                Available
+              </span>
+            ) : (
+              <div className="flex items-center gap-2">
+                <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-red-50 text-red-700">
+                  Taken
+                </span>
+                {url && (
+                  <a 
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         ))
       )}
