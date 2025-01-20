@@ -63,9 +63,6 @@ export function SocialHandleChecker({ handle }: SocialHandleCheckerProps) {
               </span>
             ) : (
               <div className="flex items-center gap-2">
-                <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-red-50 text-red-700">
-                  Taken
-                </span>
                 {url && (
                   <a 
                     href={url}
@@ -76,6 +73,9 @@ export function SocialHandleChecker({ handle }: SocialHandleCheckerProps) {
                     <ExternalLink className="h-4 w-4" />
                   </a>
                 )}
+                <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-red-50 text-red-700">
+                  Taken
+                </span>
               </div>
             )}
           </div>

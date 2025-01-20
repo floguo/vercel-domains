@@ -40,7 +40,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const response = await fetch(`${platform.url}${handle}`)
         return {
           platform: platform.name,
-          available: response.status === 404
+          available: response.status === 404,
+          url: response.status !== 404 ? `${platform.url}${handle}` : undefined
         }
       })
     )
