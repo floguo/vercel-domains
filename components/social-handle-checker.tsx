@@ -40,7 +40,7 @@ export function SocialHandleChecker({ handle }: SocialHandleCheckerProps) {
   }, [handle])
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
       {isLoading ? (
         Array.from({ length: 16 }).map((_, i) => (
           <div key={i} className="flex items-center p-3 rounded-lg border border-border bg-white">

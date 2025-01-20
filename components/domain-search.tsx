@@ -264,7 +264,7 @@ export function DomainSearch() {
       }`}>
         <div className={`${query ? 'w-full max-w-[1400px] mx-auto' : 'w-full max-w-[800px]'} px-6 space-y-6`}>
           {!query && (
-            <h1 className="text-center text-4xl tracking-tight">
+            <h1 className="text-center text-4xl tracking-tighter text-foreground">
               Find Your Perfect Domain
             </h1>
           )}
@@ -277,8 +277,10 @@ export function DomainSearch() {
               placeholder="Search for domains..."
               className={cn(
                 "w-full h-12 pl-11 pr-4 text-lg",
-                "border-border/80 placeholder:text-muted-foreground/50",
-                "focus-visible:ring-[3px] focus-visible:ring-border/80 focus-visible:ring-offset-0 focus-visible:border-muted-foreground focus-visible:border"
+                "border-border placeholder:text-muted-foreground/50",
+                "hover:border-muted-foreground/30",
+                "focus-visible:ring-[3px] focus-visible:ring-border/80 focus-visible:ring-offset-0 focus-visible:border-muted-foreground focus-visible:border",
+                "transition-[border-color] duration-150"
               )}
             />
           </div>
@@ -296,7 +298,7 @@ export function DomainSearch() {
               </TabsList>
               
               <div className="mt-6 tabs-container">
-                <TabsContent value="results">
+                <TabsContent value="results" className="min-h-[600px]">
                   <div className="space-y-6">
                     <div className="flex items-center justify-between w-full">
                       <div className="flex-1 mr-8">
@@ -461,10 +463,10 @@ export function DomainSearch() {
                   </div>
                 </TabsContent>
 
-                <TabsContent value="bookmarks">
+                <TabsContent value="bookmarks" className="min-h-[600px]">
                   <div className="space-y-6">
                     <div className="flex justify-between items-center">
-                      <h2 className="text-2xl">Bookmarked Domains</h2>
+                      <h2 className="text-2xl font-medium tracking-tight text-foreground">Bookmarked Domains</h2>
                       <Button onClick={toggleCompare} disabled={bookmarkedDomains.size < 2}>
                         {isComparing ? 'Exit Comparison' : 'Compare Domains'}
                       </Button>
@@ -499,10 +501,11 @@ export function DomainSearch() {
                   </div>
                 </TabsContent>
 
-                <TabsContent value="social">
+                <TabsContent value="social" className="min-h-[600px]">
                   <div className="space-y-6">
-                    <div className="flex justify-between items-center">
-                      <h2 className="text-2xl">Social Handle Availability</h2>
+                    <div className="flex justify-between items-center h-[36px]">
+                      <h2 className="text-2xl font-medium tracking-tight text-foreground">Social Handle Availability</h2>
+                      <div className="w-[140px]"></div>
                     </div>
                     <SocialHandleChecker handle={handle} />
                   </div>

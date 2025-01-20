@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import * as TabsPrimitive from "@radix-ui/react-tabs"
-
 import { cn } from "@/lib/utils"
 
 const Tabs = TabsPrimitive.Root
@@ -14,7 +13,7 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      "inline-flex items-center justify-center rounded-lg bg-white p-1 text-muted-foreground border border-border/60",
+      "inline-flex items-center justify-center rounded-md bg-white p-1 text-muted-foreground border border-border/80",
       className
     )}
     {...props}
@@ -29,7 +28,7 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "inline-flex items-center justify-center whitespace-nowrap rounded-[6px] px-3 p-2 text-sm font-medium transition-colors",
+      "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 p-2 text-sm font-medium transition-colors",
       "data-[state=active]:bg-neutral-100 data-[state=active]:text-foreground",
       className
     )}
