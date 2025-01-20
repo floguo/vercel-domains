@@ -44,10 +44,12 @@ export function DomainSearch() {
   const [isComparing, setIsComparing] = useState(false)
   const [filters, setFilters] = useState<Filters>({
     priceRange: 'all',
-    tldCategory: 'all',
+    tldCategory: 'all', 
     maxLength: 63,
     availability: 'all',
     special: false,
+    showPremium: true,
+    showTaken: true
   })
   const [semanticResults, setSemanticResults] = useState<{
     hacks: DomainSuggestion[]
@@ -216,6 +218,11 @@ export function DomainSearch() {
     })
   }
 
+  // Helper function to filter domains by price
+  const filterByPrice = (domains: DomainSuggestion[]) => {
+    return domains.filter(domain => isPriceInRange(domain.price, filters.priceRange))
+  }
+
   return (
     <div className="flex-1 flex flex-col">
       <div className={`flex flex-col ${
@@ -266,6 +273,7 @@ export function DomainSearch() {
                           onFiltersChange={setFilters}
                           sortBy={sortBy}
                           onSortChange={setSortBy}
+                          isSemanticMode={searchMode === 'semantic'}
                         />
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
@@ -310,8 +318,8 @@ export function DomainSearch() {
                                   className="h-[56px] rounded-lg border border-border/40 bg-neutral-50/50 animate-pulse"
                                 />
                               ))
-                            ) : semanticResults.hacks.length > 0 ? (
-                              sortDomains(semanticResults.hacks).map(result => (
+                            ) : filterByPrice(semanticResults.hacks).length > 0 ? (
+                              sortDomains(filterByPrice(semanticResults.hacks)).map(result => (
                                 <DomainCard 
                                   key={result.name + result.tld}
                                   result={result}
@@ -320,9 +328,15 @@ export function DomainSearch() {
                                   onSelect={() => {}}
                                 />
                               ))
+                            ) : semanticResults.hacks.length > 0 ? (
+                              <div className="col-span-full py-8 text-center text-sm text-muted-foreground">
+                                <p>No domains match the selected price range</p>
+                                <p className="mt-1">Try adjusting your filters</p>
+                              </div>
                             ) : (
                               <div className="col-span-full py-8 text-center text-sm text-muted-foreground">
-                                No domain hacks available for "{query}"
+                                <p>No domain hacks found for "{query}"</p>
+                                <p className="mt-1">Try something like "spotify" → "spoti.fy" or "google" → "goo.gl"</p>
                               </div>
                             )}
                           </div>
@@ -340,8 +354,8 @@ export function DomainSearch() {
                                   className="h-[56px] rounded-lg border border-border/40 bg-neutral-50/50 animate-pulse"
                                 />
                               ))
-                            ) : semanticResults.synonyms.length > 0 ? (
-                              sortDomains(semanticResults.synonyms).map(result => (
+                            ) : filterByPrice(semanticResults.synonyms).length > 0 ? (
+                              sortDomains(filterByPrice(semanticResults.synonyms)).map(result => (
                                 <DomainCard 
                                   key={result.name + result.tld}
                                   result={result}
@@ -350,9 +364,15 @@ export function DomainSearch() {
                                   onSelect={() => {}}
                                 />
                               ))
+                            ) : semanticResults.synonyms.length > 0 ? (
+                              <div className="col-span-full py-8 text-center text-sm text-muted-foreground">
+                                <p>No domains match the selected price range</p>
+                                <p className="mt-1">Try adjusting your filters</p>
+                              </div>
                             ) : (
                               <div className="col-span-full py-8 text-center text-sm text-muted-foreground">
-                                No similar words found for "{query}"
+                                <p>No similar words found for "{query}"</p>
+                                <p className="mt-1">Try a different word like "quick" → "fast", "swift", "rapid"</p>
                               </div>
                             )}
                           </div>
@@ -370,8 +390,8 @@ export function DomainSearch() {
                                   className="h-[56px] rounded-lg border border-border/40 bg-neutral-50/50 animate-pulse"
                                 />
                               ))
-                            ) : semanticResults.brandable.length > 0 ? (
-                              sortDomains(semanticResults.brandable).map(result => (
+                            ) : filterByPrice(semanticResults.brandable).length > 0 ? (
+                              sortDomains(filterByPrice(semanticResults.brandable)).map(result => (
                                 <DomainCard 
                                   key={result.name + result.tld}
                                   result={result}
@@ -380,9 +400,15 @@ export function DomainSearch() {
                                   onSelect={() => {}}
                                 />
                               ))
+                            ) : semanticResults.brandable.length > 0 ? (
+                              <div className="col-span-full py-8 text-center text-sm text-muted-foreground">
+                                <p>No domains match the selected price range</p>
+                                <p className="mt-1">Try adjusting your filters</p>
+                              </div>
                             ) : (
                               <div className="col-span-full py-8 text-center text-sm text-muted-foreground">
-                                No brandable variations found for "{query}"
+                                <p>No brandable variations found for "{query}"</p>
+                                <p className="mt-1">Try a shorter word like "flow" → "flowapp", "flowio", "flowhq"</p>
                               </div>
                             )}
                           </div>
@@ -395,7 +421,9 @@ export function DomainSearch() {
                         onBookmark={handleBookmark}
                         onDomainSelect={() => {}}
                         sortBy={sortBy}
-                        filters={filters}
+                        filters={{
+                          tldCategory: filters.tldCategory as "local" | "creative" | "tech" | "business" | "all"
+                        }}
                       />
                     )}
                   </div>
@@ -410,7 +438,7 @@ export function DomainSearch() {
                       </Button>
                     </div>
                     {bookmarkedDomains.size === 0 ? (
-                      <div className="text-center py-16 px-4 border border-border rounded-lg">
+                      <div className="text-center py-16 px-4 border border-border rounded-lg bg-white">
                         <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-muted mb-4">
                           <Bookmark className="h-6 w-6 text-muted-foreground" />
                         </div>
@@ -431,7 +459,9 @@ export function DomainSearch() {
                         onBookmark={handleBookmark}
                         onDomainSelect={() => {}}
                         sortBy={sortBy}
-                        filters={filters}
+                        filters={{
+                          tldCategory: filters.tldCategory as "local" | "creative" | "tech" | "business" | "all"
+                        }}
                       />
                     )}
                   </div>

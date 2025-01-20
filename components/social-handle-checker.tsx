@@ -33,10 +33,10 @@ export function SocialHandleChecker({ handle }: SocialHandleCheckerProps) {
   }, [handle])
 
   return (
-    <div className="grid gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
       {isLoading ? (
         Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="flex items-center p-4 rounded-lg border border-border">
+          <div key={i} className="flex items-center p-4 rounded-lg border border-border bg-white">
             <div className="flex items-center gap-3 flex-1">
               <div className="w-5 h-5 rounded-full bg-muted animate-pulse" />
               <div className="h-4 w-24 bg-muted animate-pulse rounded" />
@@ -48,7 +48,7 @@ export function SocialHandleChecker({ handle }: SocialHandleCheckerProps) {
         results.map(({ platform, available }) => (
           <div
             key={platform}
-            className="p-3 rounded-lg border border-border hover:border-border/30 transition-all flex items-center justify-between"
+            className="flex items-center justify-between p-3 rounded-lg border border-border bg-white"
           >
             <span className="text-sm font-medium">{platform}</span>
             <span className={cn(
