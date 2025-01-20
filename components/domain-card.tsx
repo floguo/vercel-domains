@@ -24,7 +24,7 @@ export function DomainCard({
   return (
     <div 
       className={cn(
-        "relative group p-3 rounded-lg border border-border hover:border-border/30 transition-all cursor-pointer bg-white",
+        "relative group p-3 rounded-lg border border-border hover:border-foreground/20 transition-all cursor-pointer bg-white",
         "hover:shadow-[0_2px_8px_0_rgba(0,0,0,0.04)]"
       )}
       onClick={onSelect}
@@ -40,10 +40,10 @@ export function DomainCard({
       <div className="space-y-2">
         <div className="flex items-center justify-between pr-8">
           <span className={cn(
-            "text-sm font-medium",
+            "text-sm font-medium whitespace-nowrap",
             !result.available && "line-through text-muted-foreground"
           )}>
-            {result.name}{result.tld}
+            {result.name.trim()}{result.tld}
           </span>
           {result.available && result.price && (
             <span className="text-xs text-blue-500 tabular-nums">

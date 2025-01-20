@@ -79,22 +79,33 @@ export function DomainSearch() {
       { name: query, tld: '.me', available: true, price: 1950, type: 'exact' },
       { name: query, tld: '.ai', available: true, price: 17800, type: 'exact', isPremium: true },
       
-      // Technology
+      // Technology & Software
       { name: query, tld: '.dev', available: true, price: 1400, type: 'exact' },
       { name: query, tld: '.tech', available: true, price: 4900, type: 'exact' },
       { name: query, tld: '.app', available: true, price: 1800, type: 'exact' },
-      { name: query, tld: '.codes', available: true, price: 5200, type: 'exact' },
+      { name: query, tld: '.software', available: true, price: 2900, type: 'exact' },
+      { name: query, tld: '.computer', available: true, price: 3200, type: 'exact' },
+      { name: query, tld: '.cloud', available: true, price: 2200, type: 'exact' },
       { name: query, tld: '.digital', available: true, price: 2900, type: 'exact' },
       { name: query, tld: '.network', available: true, price: 1800, type: 'exact' },
       { name: query, tld: '.systems', available: true, price: 1900, type: 'exact' },
+      { name: query, tld: '.codes', available: true, price: 5200, type: 'exact' },
+      { name: query, tld: '.tools', available: true, price: 2500, type: 'exact' },
+      { name: query, tld: '.space', available: true, price: 1900, type: 'exact' },
       
-      // Business
+      // Business & Professional
       { name: query, tld: '.inc', available: true, price: 15800, type: 'exact' },
       { name: query, tld: '.company', available: true, price: 2600, type: 'exact' },
       { name: query, tld: '.business', available: true, price: 2200, type: 'exact' },
       { name: query, tld: '.agency', available: true, price: 2900, type: 'exact' },
       { name: query, tld: '.consulting', available: true, price: 3100, type: 'exact' },
       { name: query, tld: '.management', available: true, price: 2400, type: 'exact' },
+      { name: query, tld: '.services', available: true, price: 2800, type: 'exact' },
+      { name: query, tld: '.solutions', available: true, price: 2300, type: 'exact' },
+      { name: query, tld: '.ventures', available: true, price: 4800, type: 'exact' },
+      { name: query, tld: '.limited', available: true, price: 2600, type: 'exact' },
+      { name: query, tld: '.group', available: true, price: 2200, type: 'exact' },
+      { name: query, tld: '.zone', available: true, price: 2400, type: 'exact' },
       
       // Creative & Media
       { name: query, tld: '.design', available: true, price: 3500, type: 'exact' },
@@ -103,20 +114,41 @@ export function DomainSearch() {
       { name: query, tld: '.art', available: true, price: 1500, type: 'exact' },
       { name: query, tld: '.photography', available: true, price: 2100, type: 'exact' },
       { name: query, tld: '.gallery', available: true, price: 2000, type: 'exact' },
+      { name: query, tld: '.graphics', available: true, price: 2400, type: 'exact' },
+      { name: query, tld: '.video', available: true, price: 2700, type: 'exact' },
+      { name: query, tld: '.film', available: true, price: 3900, type: 'exact' },
+      { name: query, tld: '.productions', available: true, price: 2800, type: 'exact' },
+      { name: query, tld: '.live', available: true, price: 2300, type: 'exact' },
       
-      // E-commerce
+      // E-commerce & Shopping
       { name: query, tld: '.shop', available: true, price: 2800, type: 'exact' },
       { name: query, tld: '.store', available: true, price: 2100, type: 'exact' },
       { name: query, tld: '.market', available: true, price: 3200, type: 'exact' },
       { name: query, tld: '.shopping', available: true, price: 2900, type: 'exact' },
+      { name: query, tld: '.sale', available: true, price: 2600, type: 'exact' },
+      { name: query, tld: '.deals', available: true, price: 2400, type: 'exact' },
+      { name: query, tld: '.buy', available: true, price: 3100, type: 'exact' },
+      { name: query, tld: '.discount', available: true, price: 2300, type: 'exact' },
       
-      // Other
-      { name: query, tld: '.world', available: true, price: 2900, type: 'exact' },
-      { name: query, tld: '.live', available: true, price: 2300, type: 'exact' },
+      // Local/Regional
+      { name: query, tld: '.us', available: true, price: 1200, type: 'exact' },
+      { name: query, tld: '.uk', available: true, price: 900, type: 'exact' },
+      { name: query, tld: '.eu', available: true, price: 1100, type: 'exact' },
+      { name: query, tld: '.de', available: true, price: 1000, type: 'exact' },
+      { name: query, tld: '.fr', available: true, price: 1100, type: 'exact' },
+      { name: query, tld: '.es', available: true, price: 1000, type: 'exact' },
+      { name: query, tld: '.it', available: true, price: 1100, type: 'exact' },
+      { name: query, tld: '.au', available: true, price: 1300, type: 'exact' },
+      
+      // Education & Community
+      { name: query, tld: '.academy', available: true, price: 2600, type: 'exact' },
       { name: query, tld: '.guide', available: true, price: 2500, type: 'exact' },
-      { name: query, tld: '.plus', available: true, price: 2700, type: 'exact' },
       { name: query, tld: '.club', available: true, price: 1200, type: 'exact' },
-      { name: query, tld: '.zone', available: true, price: 2400, type: 'exact' }
+      
+      // Generic/Other
+      { name: query, tld: '.world', available: true, price: 2900, type: 'exact' },
+      { name: query, tld: '.plus', available: true, price: 2700, type: 'exact' },
+      { name: query, tld: '.life', available: true, price: 2800, type: 'exact' }
     ]
 
     setResults(mockResults)
@@ -225,10 +257,10 @@ export function DomainSearch() {
 
   return (
     <div className="flex-1 flex flex-col">
-      <div className={`flex flex-col ${
+      <div className={`flex-1 ${
         query 
-          ? 'pt-16' 
-          : 'items-center justify-center min-h-[calc(100vh-64px)] -mt-16'
+          ? 'pt-16 pb-24 min-h-[1800px]' 
+          : 'flex items-center justify-center'
       }`}>
         <div className={`${query ? 'w-full max-w-[1400px] mx-auto' : 'w-full max-w-[800px]'} px-6 space-y-6`}>
           {!query && (
@@ -372,7 +404,7 @@ export function DomainSearch() {
                             ) : (
                               <div className="col-span-full py-8 text-center text-sm text-muted-foreground">
                                 <p>No similar words found for "{query}"</p>
-                                <p className="mt-1">Try a different word like "quick" → "fast", "swift", "rapid"</p>
+                          
                               </div>
                             )}
                           </div>
@@ -408,7 +440,7 @@ export function DomainSearch() {
                             ) : (
                               <div className="col-span-full py-8 text-center text-sm text-muted-foreground">
                                 <p>No brandable variations found for "{query}"</p>
-                                <p className="mt-1">Try a shorter word like "flow" → "flowapp", "flowio", "flowhq"</p>
+                        
                               </div>
                             )}
                           </div>

@@ -6,7 +6,8 @@ interface SocialHandleCheckerProps {
 }
 
 export function SocialHandleChecker({ handle }: SocialHandleCheckerProps) {
-  const [results, setResults] = useState<Array<{ platform: string; available: boolean }>>([])
+  const [results, setResults] = useState<Array<{ platform: string; available: boolean }>>([
+  ])
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -35,10 +36,9 @@ export function SocialHandleChecker({ handle }: SocialHandleCheckerProps) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
       {isLoading ? (
-        Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="flex items-center p-4 rounded-lg border border-border bg-white">
+        Array.from({ length: 16 }).map((_, i) => (
+          <div key={i} className="flex items-center p-3 rounded-lg border border-border bg-white">
             <div className="flex items-center gap-3 flex-1">
-              <div className="w-5 h-5 rounded-full bg-muted animate-pulse" />
               <div className="h-4 w-24 bg-muted animate-pulse rounded" />
             </div>
             <div className="w-16 h-5 bg-muted animate-pulse rounded-full" />

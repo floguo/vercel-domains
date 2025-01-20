@@ -12,8 +12,20 @@ export function Nav() {
             <path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/>
           </svg>
         </Link>
-          <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-border/40">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M4.01526 15.3939L4.3107 14.7046L10.3107 0.704556L10.6061 0.0151978L11.9849 0.606077L11.6894 1.29544L5.68942 15.2954L5.39398 15.9848L4.01526 15.3939Z" fill="currentColor" />
+          <svg 
+            width="24" 
+            height="24" 
+            viewBox="0 0 16 16" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg" 
+            className="text-border/70"
+          >
+              <path 
+                fill-rule="evenodd" 
+                clip-rule="evenodd" 
+                d="M4.01526 15.3939L4.3107 14.7046L10.3107 0.704556L10.6061 0.0151978L11.9849 0.606077L11.6894 1.29544L5.68942 15.2954L5.39398 15.9848L4.01526 15.3939Z" 
+                fill="currentColor" 
+              />
           </svg>
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2">
@@ -27,12 +39,24 @@ export function Nav() {
             <span className="text-sm">floguo</span>
           </Link>
           <div className="flex items-center gap-2">
-            <button className="rounded-full text-medium bg-neutral-200/60 px-2 py-0.5 text-[0.7rem] text-neutral-700">
+            <button className="rounded-full bg-neutral-200/60 px-2 py-0.5 text-[0.7rem] text-neutral-600 font-medium">
               Hobby
             </button>
             <ChevronUpDown className="h-3.5 w-3.5 text-muted-foreground" />
-            <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-border/40">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M4.01526 15.3939L4.3107 14.7046L10.3107 0.704556L10.6061 0.0151978L11.9849 0.606077L11.6894 1.29544L5.68942 15.2954L5.39398 15.9848L4.01526 15.3939Z" fill="currentColor" />
+            <svg 
+              width="24" 
+              height="24" 
+              viewBox="0 0 16 16" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg" 
+              className="text-border/70"
+            >
+              <path 
+                fill-rule="evenodd" 
+                clip-rule="evenodd" 
+                d="M4.01526 15.3939L4.3107 14.7046L10.3107 0.704556L10.6061 0.0151978L11.9849 0.606077L11.6894 1.29544L5.68942 15.2954L5.39398 15.9848L4.01526 15.3939Z" 
+                fill="currentColor" 
+              />
             </svg>
             <span className="text-sm">New Domain</span>
           </div>
@@ -42,7 +66,7 @@ export function Nav() {
         <Button
           variant="outline"
           size="sm"
-          className="h-8 rounded-md px-4 text-sm text-neutral-500 font-regular bg-white"
+          className="h-9 rounded-md px-4 text-sm text-neutral-500 shadow-none border border-neutral-200 font-normal bg-white hover:bg-neutral-50"
         >
           Feedback
         </Button>

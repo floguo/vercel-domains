@@ -29,7 +29,7 @@ export function MoreFiltersDialog({ filters, onFiltersChange }: MoreFiltersDialo
         <Button 
           variant="outline" 
           size="sm" 
-          className="h-10 bg-white text-sm font-normal"
+          className="h-10 bg-white text-sm font-normal hover:bg-neutral-50"
         >
           <SlidersHorizontal className="mr-2 h-4 w-4" />
           More filters

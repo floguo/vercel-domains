@@ -68,20 +68,36 @@ export function DomainGrid({
   onDomainSelect
 }: DomainGridProps) {
   // Group domains by category
-  const popular = results.filter(r => ['com', 'net', 'org', 'io', 'co', 'me', 'ai'].includes(r.tld.slice(1)))
-  const tech = results.filter(r => ['dev', 'tech', 'app', 'codes', 'digital', 'network', 'systems'].includes(r.tld.slice(1)))
-  const business = results.filter(r => ['inc', 'company', 'business', 'agency', 'consulting', 'management'].includes(r.tld.slice(1)))
-  const creative = results.filter(r => ['design', 'studio', 'media', 'art', 'photography', 'gallery'].includes(r.tld.slice(1)))
-  const ecommerce = results.filter(r => ['shop', 'store', 'market', 'shopping'].includes(r.tld.slice(1)))
-  const other = results.filter(r => !['com', 'net', 'org', 'io', 'co', 'me', 'ai', 'dev', 'tech', 'app', 'codes', 'digital', 'network', 'systems', 'inc', 'company', 'business', 'agency', 'consulting', 'management', 'design', 'studio', 'media', 'art', 'photography', 'gallery', 'shop', 'store', 'market', 'shopping'].includes(r.tld.slice(1)))
+  const groupedDomains = results.reduce((acc, domain) => {
+    const categories = {
+      'Popular': ['.com', '.net', '.org', '.io', '.co', '.me', '.ai'],
+      'Technology & Software': ['.dev', '.tech', '.app', '.software', '.computer', '.cloud', '.digital', '.network', '.systems', '.codes', '.tools', '.space'],
+      'Business & Professional': ['.inc', '.company', '.business', '.agency', '.consulting', '.management', '.services', '.solutions', '.ventures', '.limited', '.group', '.zone'],
+      'Creative & Media': ['.design', '.studio', '.media', '.art', '.photography', '.gallery', '.graphics', '.video', '.film', '.productions', '.live'],
+      'E-commerce & Shopping': ['.shop', '.store', '.market', '.shopping', '.sale', '.deals', '.buy', '.discount'],
+      'Local/Regional': ['.us', '.uk', '.eu', '.de', '.fr', '.es', '.it', '.au'],
+      'Education & Community': ['.academy', '.guide', '.club'],
+      'Generic/Other': ['.world', '.plus', '.life']
+    }
+
+    // Find which category this domain belongs to
+    const category = Object.entries(categories).find(([_, tlds]) => 
+      tlds.includes(domain.tld)
+    )?.[0] || 'Other'
+
+    return {
+      ...acc,
+      [category]: [...(acc[category] || []), domain]
+    }
+  }, {} as Record<string, typeof results>)
 
   return (
     <div className="space-y-8">
-      {popular.length > 0 && (
-        <section className="space-y-3">
-          <h3 className="text-sm font-medium text-muted-foreground">Popular</h3>
+      {Object.entries(groupedDomains).map(([category, domains]) => (
+        <section key={category} className="space-y-3">
+          <h3 className="text-sm font-medium text-muted-foreground">{category}</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {popular.map(result => (
+            {domains.map(result => (
               <DomainCard
                 key={result.name + result.tld}
                 result={result}
@@ -92,92 +108,7 @@ export function DomainGrid({
             ))}
           </div>
         </section>
-      )}
-
-      {tech.length > 0 && (
-        <section className="space-y-3">
-          <h3 className="text-sm font-medium text-muted-foreground">Technology</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {tech.map(result => (
-              <DomainCard
-                key={result.name + result.tld}
-                result={result}
-                bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
-                onBookmark={onBookmark}
-                onSelect={() => onDomainSelect(result)}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {business.length > 0 && (
-        <section className="space-y-3">
-          <h3 className="text-sm font-medium text-muted-foreground">Business</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {business.map(result => (
-              <DomainCard
-                key={result.name + result.tld}
-                result={result}
-                bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
-                onBookmark={onBookmark}
-                onSelect={() => onDomainSelect(result)}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {creative.length > 0 && (
-        <section className="space-y-3">
-          <h3 className="text-sm font-medium text-muted-foreground">Creative & Media</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {creative.map(result => (
-              <DomainCard
-                key={result.name + result.tld}
-                result={result}
-                bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
-                onBookmark={onBookmark}
-                onSelect={() => onDomainSelect(result)}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {ecommerce.length > 0 && (
-        <section className="space-y-3">
-          <h3 className="text-sm font-medium text-muted-foreground">E-commerce</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {ecommerce.map(result => (
-              <DomainCard
-                key={result.name + result.tld}
-                result={result}
-                bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
-                onBookmark={onBookmark}
-                onSelect={() => onDomainSelect(result)}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {other.length > 0 && (
-        <section className="space-y-3">
-          <h3 className="text-sm font-medium text-muted-foreground">Other</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {other.map(result => (
-              <DomainCard
-                key={result.name + result.tld}
-                result={result}
-                bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
-                onBookmark={onBookmark}
-                onSelect={() => onDomainSelect(result)}
-              />
-            ))}
-          </div>
-        </section>
-      )}
+      ))}
     </div>
   )
 }
