@@ -37,7 +37,7 @@ export function DomainComparison({ domains, onClose }: DomainComparisonProps) {
         <TableBody>
           {domains.map((domain, i) => (
             <TableRow key={i}>
-              <TableCell className="font-mono">
+              <TableCell className="">
                 {domain.name}{domain.tld}
               </TableCell>
               <TableCell>{domain.available ? 'Yes' : 'No'}</TableCell>

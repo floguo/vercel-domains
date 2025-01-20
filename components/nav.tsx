@@ -27,7 +27,7 @@ export function Nav() {
             <span className="text-sm">floguo</span>
           </Link>
           <div className="flex items-center gap-2">
-            <button className="rounded-full bg-neutral-200/60 px-2.5 py-0.5 text-[0.75rem]">
+            <button className="rounded-full text-medium bg-neutral-200/60 px-2 py-0.5 text-[0.7rem] text-neutral-700">
               Hobby
             </button>
             <ChevronUpDown className="h-3.5 w-3.5 text-muted-foreground" />
@@ -42,7 +42,7 @@ export function Nav() {
         <Button
           variant="outline"
           size="sm"
-          className="h-8 rounded-lg px-4 text-sm"
+          className="h-8 rounded-md px-4 text-sm text-neutral-500 font-regular bg-white"
         >
           Feedback
         </Button>

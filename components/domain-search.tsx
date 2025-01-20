@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Search } from 'lucide-react'
+import { Search, Bookmark, InfoIcon } from 'lucide-react'
 import { DomainFilters, Filters } from './domain-filters'
 import { DomainResults } from './domain-results'
 import { DomainComparison } from './domain-comparison'
@@ -13,6 +13,8 @@ import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { DomainCard } from './domain-card'
 import { generateSemanticSuggestions } from '@/lib/semantic-suggestions'
+import { cn } from '@/lib/utils'
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 interface DomainResult {
   name: string
@@ -57,6 +59,7 @@ export function DomainSearch() {
     brandable: []
   })
   const [isLoading, setIsLoading] = useState(false)
+  const [sortBy, setSortBy] = useState('relevant')
 
   useEffect(() => {
     if (!query) {
@@ -199,6 +202,20 @@ export function DomainSearch() {
   // Extract handle from query (remove TLD if present)
   const handle = query.split('.')[0]
 
+  // Helper function to sort domain results
+  const sortDomains = (domains: DomainSuggestion[]) => {
+    return [...domains].sort((a, b) => {
+      switch (sortBy) {
+        case 'price-asc':
+          return (a.price || 0) - (b.price || 0)
+        case 'price-desc':
+          return (b.price || 0) - (a.price || 0)
+        default:
+          return 0 // Keep original order for 'relevant'
+      }
+    })
+  }
+
   return (
     <div className="flex-1 flex flex-col">
       <div className={`flex flex-col ${
@@ -213,13 +230,17 @@ export function DomainSearch() {
             </h1>
           )}
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground/60 h-4 w-4" />
             <Input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search for domains..."
-              className="w-full h-12 pl-11 pr-4 text-lg"
+              className={cn(
+                "w-full h-12 pl-11 pr-4 text-lg",
+                "border-border/80 placeholder:text-muted-foreground/50",
+                "focus-visible:ring-[3px] focus-visible:ring-border/80 focus-visible:ring-offset-0 focus-visible:border-muted-foreground focus-visible:border"
+              )}
             />
           </div>
         </div>
@@ -238,9 +259,16 @@ export function DomainSearch() {
               <div className="mt-6 tabs-container">
                 <TabsContent value="results">
                   <div className="space-y-6">
-                    <div className="flex items-center justify-between">
-                      <DomainFilters filters={filters} onFiltersChange={setFilters} />
-                      <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-between w-full">
+                      <div className="flex-1 mr-8">
+                        <DomainFilters 
+                          filters={filters} 
+                          onFiltersChange={setFilters}
+                          sortBy={sortBy}
+                          onSortChange={setSortBy}
+                        />
+                      </div>
+                      <div className="flex items-center gap-2 flex-shrink-0">
                         <Label htmlFor="search-mode" className="text-sm text-muted-foreground">
                           Semantic search
                         </Label>
@@ -256,17 +284,40 @@ export function DomainSearch() {
                       <div className="space-y-8">
                         {/* Domain Hacks */}
                         <section className="space-y-3">
-                          <h3 className="text-sm font-medium text-muted-foreground">Domain Hacks</h3>
+                          <div className="flex items-center gap-2">
+                            <h3 className="text-sm font-medium text-muted-foreground">Domain Hacks</h3>
+                            <Tooltip delayDuration={0}>
+                              <TooltipTrigger asChild>
+                                <button className="inline-flex">
+                                  <InfoIcon className="h-4 w-4 text-muted-foreground/50 hover:text-muted-foreground/80 transition-colors" />
+                                </button>
+                              </TooltipTrigger>
+                              <TooltipContent 
+                                side="top" 
+                                className="max-w-[240px] px-4 py-2 text-xs font-light leading-tight text-white/90"
+                                sideOffset={12}
+                              >
+                                Domains that use the extension to complete the word (youtu.be)
+                              </TooltipContent>
+                            </Tooltip>
+                          </div>
                           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                            {semanticResults.hacks.length > 0 ? (
-                              semanticResults.hacks.map(result => (
+                            {isLoading ? (
+                              // Show skeleton cards while loading
+                              Array.from({ length: 2 }).map((_, i) => (
+                                <div 
+                                  key={i} 
+                                  className="h-[56px] rounded-lg border border-border/40 bg-neutral-50/50 animate-pulse"
+                                />
+                              ))
+                            ) : semanticResults.hacks.length > 0 ? (
+                              sortDomains(semanticResults.hacks).map(result => (
                                 <DomainCard 
                                   key={result.name + result.tld}
                                   result={result}
                                   bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
                                   onBookmark={handleBookmark}
                                   onSelect={() => {}}
-                                  showExplanation
                                 />
                               ))
                             ) : (
@@ -281,15 +332,22 @@ export function DomainSearch() {
                         <section className="space-y-3">
                           <h3 className="text-sm font-medium text-muted-foreground">Similar Words</h3>
                           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                            {semanticResults.synonyms.length > 0 ? (
-                              semanticResults.synonyms.map(result => (
+                            {isLoading ? (
+                              // Show skeleton cards while loading
+                              Array.from({ length: 4 }).map((_, i) => (
+                                <div 
+                                  key={i} 
+                                  className="h-[56px] rounded-lg border border-border/40 bg-neutral-50/50 animate-pulse"
+                                />
+                              ))
+                            ) : semanticResults.synonyms.length > 0 ? (
+                              sortDomains(semanticResults.synonyms).map(result => (
                                 <DomainCard 
                                   key={result.name + result.tld}
                                   result={result}
                                   bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
                                   onBookmark={handleBookmark}
                                   onSelect={() => {}}
-                                  showExplanation
                                 />
                               ))
                             ) : (
@@ -304,15 +362,22 @@ export function DomainSearch() {
                         <section className="space-y-3">
                           <h3 className="text-sm font-medium text-muted-foreground">Brandable Names</h3>
                           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                            {semanticResults.brandable.length > 0 ? (
-                              semanticResults.brandable.map(result => (
+                            {isLoading ? (
+                              // Show skeleton cards while loading
+                              Array.from({ length: 4 }).map((_, i) => (
+                                <div 
+                                  key={i} 
+                                  className="h-[56px] rounded-lg border border-border/40 bg-neutral-50/50 animate-pulse"
+                                />
+                              ))
+                            ) : semanticResults.brandable.length > 0 ? (
+                              sortDomains(semanticResults.brandable).map(result => (
                                 <DomainCard 
                                   key={result.name + result.tld}
                                   result={result}
                                   bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
                                   onBookmark={handleBookmark}
                                   onSelect={() => {}}
-                                  showExplanation
                                 />
                               ))
                             ) : (
@@ -329,6 +394,8 @@ export function DomainSearch() {
                         bookmarkedDomains={bookmarkedDomains}
                         onBookmark={handleBookmark}
                         onDomainSelect={() => {}}
+                        sortBy={sortBy}
+                        filters={filters}
                       />
                     )}
                   </div>
@@ -342,7 +409,17 @@ export function DomainSearch() {
                         {isComparing ? 'Exit Comparison' : 'Compare Domains'}
                       </Button>
                     </div>
-                    {isComparing ? (
+                    {bookmarkedDomains.size === 0 ? (
+                      <div className="text-center py-16 px-4 border border-border rounded-lg">
+                        <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-muted mb-4">
+                          <Bookmark className="h-6 w-6 text-muted-foreground" />
+                        </div>
+                        <h3 className="text-lg font-medium mb-2">No bookmarked domains</h3>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Save domains to easily compare them.
+                        </p>
+                      </div>
+                    ) : isComparing ? (
                       <DomainComparison
                         domains={Array.from(bookmarkedDomains).map(domain => findDomainData(domain))}
                         onClose={toggleCompare}
@@ -353,6 +430,8 @@ export function DomainSearch() {
                         bookmarkedDomains={bookmarkedDomains}
                         onBookmark={handleBookmark}
                         onDomainSelect={() => {}}
+                        sortBy={sortBy}
+                        filters={filters}
                       />
                     )}
                   </div>

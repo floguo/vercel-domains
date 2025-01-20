@@ -22,19 +22,25 @@ export interface Filters {
 interface DomainFiltersProps {
   filters: Filters
   onFiltersChange: (filters: Filters) => void
+  sortBy: string
+  onSortChange: (value: string) => void
 }
 
-export function DomainFilters({ filters, onFiltersChange }: DomainFiltersProps) {
+export function DomainFilters({ filters, onFiltersChange, sortBy, onSortChange }: DomainFiltersProps) {
   return (
     <div className="flex flex-wrap gap-2">
       <Select
         value={filters.priceRange}
         onValueChange={(value) => onFiltersChange({ ...filters, priceRange: value })}
       >
-        <SelectTrigger className="w-[120px]">
+        <SelectTrigger className="w-[140px]">
           <SelectValue placeholder="All prices" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent 
+          className="w-[200px]"
+          position="popper"
+          sideOffset={4}
+        >
           <SelectItem value="all">All prices</SelectItem>
           <SelectItem value="under-10">Under $10</SelectItem>
           <SelectItem value="under-50">Under $50</SelectItem>
@@ -47,47 +53,44 @@ export function DomainFilters({ filters, onFiltersChange }: DomainFiltersProps) 
         value={filters.tldCategory}
         onValueChange={(value) => onFiltersChange({ ...filters, tldCategory: value })}
       >
-        <SelectTrigger className="w-[120px]">
+        <SelectTrigger className="w-[140px]">
           <SelectValue placeholder="All TLDs" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent 
+          className="w-[200px]"
+          position="popper"
+          sideOffset={4}
+        >
           <SelectItem value="all">All TLDs</SelectItem>
-          <SelectItem value="tech">.dev, .io, .tech</SelectItem>
-          <SelectItem value="business">.com, .co, .inc</SelectItem>
-          <SelectItem value="creative">.design, .art</SelectItem>
-          <SelectItem value="local">.us, .uk, .de</SelectItem>
+          <SelectItem value="tech">Technology</SelectItem>
+          <SelectItem value="business">Business</SelectItem>
+          <SelectItem value="creative">Creative</SelectItem>
+          <SelectItem value="local">Localized</SelectItem>
         </SelectContent>
       </Select>
 
-      <Select
-        value={filters.availability}
-        onValueChange={(value) => onFiltersChange({ ...filters, availability: value })}
+      <Select 
+        value={sortBy} 
+        onValueChange={onSortChange}
       >
-        <SelectTrigger className="w-[120px]">
-          <SelectValue placeholder="Availability" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">Show all</SelectItem>
-          <SelectItem value="available">Available only</SelectItem>
-          <SelectItem value="premium">Premium only</SelectItem>
-          <SelectItem value="taken">Taken (with offers)</SelectItem>
-        </SelectContent>
-      </Select>
-
-      <Select defaultValue="relevant">
-        <SelectTrigger className="w-[160px]">
-          <SelectValue placeholder="Sort by" />
+        <SelectTrigger className="w-[240px]">
+          <div className="flex items-center gap-2">
+            <span className="text-muted-foreground">Sort by:</span>
+            <SelectValue defaultValue="Most relevant" />
+          </div>
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="relevant">Most relevant</SelectItem>
-          <SelectItem value="price-asc">Price: Low to High</SelectItem>
-          <SelectItem value="price-desc">Price: High to Low</SelectItem>
-          <SelectItem value="length-asc">Length: Short to Long</SelectItem>
-          <SelectItem value="length-desc">Length: Long to Short</SelectItem>
+          <SelectItem value="price-asc">Price - Low to High</SelectItem>
+          <SelectItem value="price-desc">Price - High to Low</SelectItem>
         </SelectContent>
       </Select>
 
-      <Button variant="outline" size="sm" className="h-9 text-sm">
+      <Button 
+        variant="outline" 
+        size="sm" 
+        className="h-10 bg-white text-sm font-normal"
+      >
         <SlidersHorizontal className="mr-2 h-4 w-4" />
         More filters
       </Button>

@@ -18,9 +18,10 @@ const TooltipContent = React.forwardRef<
   <TooltipPrimitive.Portal>
     <TooltipPrimitive.Content
       ref={ref}
-      sideOffset={sideOffset}
+      sideOffset={12}
       className={cn(
-        "z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+        "z-50 overflow-hidden rounded-md bg-neutral-900 px-4 py-2 text-xs text-white animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+        "after:absolute after:left-1/2 after:-translate-x-1/2 after:top-[99%] after:h-0 after:w-0 after:border-[6px] after:border-transparent after:border-t-neutral-900 after:[clip-path:polygon(0_0,100%_0,50%_100%)] after:[border-radius:0_0_2px_0]",
         className
       )}
       {...props}

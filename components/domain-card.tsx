@@ -7,12 +7,10 @@ interface DomainCardProps {
     tld: string
     available: boolean
     price?: number
-    explanation?: string
   }
   bookmarked: boolean
   onBookmark: (domain: string) => void
   onSelect: () => void
-  showExplanation?: boolean
 }
 
 export function DomainCard({
@@ -20,13 +18,15 @@ export function DomainCard({
   bookmarked,
   onBookmark,
   onSelect,
-  showExplanation
 }: DomainCardProps) {
   const domain = `${result.name}${result.tld}`
   
   return (
     <div 
-      className="relative group p-3 rounded-lg border hover:border-foreground/30 hover:shadow-[0_2px_8px_0_rgba(0,0,0,0.04)] transition-all cursor-pointer"
+      className={cn(
+        "relative group p-3 rounded-lg border border-border hover:border-border/30 transition-all cursor-pointer bg-white",
+        "hover:shadow-[0_2px_8px_0_rgba(0,0,0,0.04)]"
+      )}
       onClick={onSelect}
     >
       <div className="absolute right-2 top-2.5">
@@ -51,12 +51,6 @@ export function DomainCard({
             </span>
           )}
         </div>
-
-        {showExplanation && result.explanation && (
-          <p className="text-xs text-muted-foreground">
-            {result.explanation}
-          </p>
-        )}
       </div>
     </div>
   )

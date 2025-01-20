@@ -51,7 +51,6 @@ export function SemanticResults({
               bookmarked={bookmarkedDomains.has(`${result.name}${result.tld}`)}
               onBookmark={() => onBookmark(`${result.name}${result.tld}`)}
               onSelect={() => onDomainSelect(result)}
-              showExplanation
             />
           ))}
         </div>
