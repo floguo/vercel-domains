@@ -256,10 +256,10 @@ export function DomainSearch() {
   }
 
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col max-w-full">
       <div className={`flex-1 ${
         query 
-          ? 'pt-16 pb-24 min-h-[1800px]' 
+          ? 'pt-16 pb-24' 
           : 'flex items-center justify-center'
       }`}>
         <div className={`${query ? 'w-full max-w-[1400px] mx-auto' : 'w-full max-w-[800px]'} px-6 space-y-6`}>

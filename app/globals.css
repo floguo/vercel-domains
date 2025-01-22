@@ -58,16 +58,12 @@
   }
   html {
     font-family: var(--font-geist-sans);
-    overflow-y: scroll;
-    margin-right: calc(-1 * (100vw - 100%));
-    margin-left: 0;
   }
   * {
     @apply border-border;
   }
   body {
     @apply bg-[#fafafa] text-foreground;
-    overflow-y: scroll;
   }
 
   /* Scrollbar styling */
@@ -94,9 +90,10 @@
 
   /* Prevent content shift */
   .tabs-container {
-    height: calc(100vh - 200px);
+    min-height: calc(100vh - 200px);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
 
   /* Ensure tab content aligns to top */
