@@ -39,14 +39,17 @@ export function DomainCard({
 
       <div className="space-y-2">
         <div className="flex items-center justify-between pr-8">
-          <span className={cn(
-            "text-sm font-medium whitespace-nowrap",
+          <div className={cn(
+            "text-sm flex items-center min-w-0",
             !result.available && "line-through text-muted-foreground"
           )}>
-            {result.name.trim()}{result.tld}
-          </span>
+            <span className="truncate font-normal text-muted-foreground">
+              {result.name.replace(/\s+/g, '')}
+            </span>
+            <span className="flex-shrink-0 font-medium">{result.tld}</span>
+          </div>
           {result.available && result.price && (
-            <span className="text-xs text-blue-500 tabular-nums">
+            <span className="text-xs text-blue-500 tabular-nums flex-shrink-0 ml-2">
               ${(result.price / 100).toFixed(2)}
             </span>
           )}

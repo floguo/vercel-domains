@@ -346,11 +346,20 @@ export function DomainSearch() {
                           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                             {isLoading ? (
                               // Show skeleton cards while loading
-                              Array.from({ length: 2 }).map((_, i) => (
+                              Array.from({ length: 4 }).map((_, i) => (
                                 <div 
                                   key={i} 
-                                  className="h-[56px] rounded-lg border border-border/40 bg-neutral-50/50 animate-pulse"
-                                />
+                                  className={cn(
+                                    "p-3 rounded-lg border border-border/60 bg-white",
+                                    "flex items-center justify-between",
+                                    "animate-pulse"
+                                  )}
+                                >
+                                  <div className="flex items-center justify-between pr-8 w-full">
+                                    <div className="h-[18px] w-32 bg-neutral-100 rounded" />
+                                    <div className="h-[16px] w-14 bg-neutral-100 rounded" />
+                                  </div>
+                                </div>
                               ))
                             ) : filterByPrice(semanticResults.hacks).length > 0 ? (
                               sortDomains(filterByPrice(semanticResults.hacks)).map(result => (
@@ -385,8 +394,17 @@ export function DomainSearch() {
                               Array.from({ length: 4 }).map((_, i) => (
                                 <div 
                                   key={i} 
-                                  className="h-[56px] rounded-lg border border-border/40 bg-neutral-50/50 animate-pulse"
-                                />
+                                  className={cn(
+                                    "p-3 rounded-lg border border-border/60 bg-white",
+                                    "flex items-center justify-between",
+                                    "animate-pulse"
+                                  )}
+                                >
+                                  <div className="flex items-center justify-between pr-8 w-full">
+                                    <div className="h-[18px] w-32 bg-neutral-100 rounded" />
+                                    <div className="h-[16px] w-14 bg-neutral-100 rounded" />
+                                  </div>
+                                </div>
                               ))
                             ) : filterByPrice(semanticResults.synonyms).length > 0 ? (
                               sortDomains(filterByPrice(semanticResults.synonyms)).map(result => (
@@ -421,8 +439,17 @@ export function DomainSearch() {
                               Array.from({ length: 4 }).map((_, i) => (
                                 <div 
                                   key={i} 
-                                  className="h-[56px] rounded-lg border border-border/40 bg-neutral-50/50 animate-pulse"
-                                />
+                                  className={cn(
+                                    "p-3 rounded-lg border border-border/60 bg-white",
+                                    "flex items-center justify-between",
+                                    "animate-pulse"
+                                  )}
+                                >
+                                  <div className="flex items-center justify-between pr-8 w-full">
+                                    <div className="h-[18px] w-32 bg-neutral-100 rounded" />
+                                    <div className="h-[16px] w-14 bg-neutral-100 rounded" />
+                                  </div>
+                                </div>
                               ))
                             ) : filterByPrice(semanticResults.brandable).length > 0 ? (
                               sortDomains(filterByPrice(semanticResults.brandable)).map(result => (
