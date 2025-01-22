@@ -256,10 +256,10 @@ export function DomainSearch() {
   }
 
   return (
-    <div className="flex-1 flex flex-col max-w-full">
+    <div className="flex-1 flex flex-col">
       <div className={`flex-1 ${
         query 
-          ? 'pt-16 pb-24' 
+          ? 'pt-16 pb-24 min-h-[1800px]' 
           : 'flex items-center justify-center'
       }`}>
         <div className={`${query ? 'w-full max-w-[1400px] mx-auto' : 'w-full max-w-[800px]'} px-6 space-y-6`}>
@@ -287,7 +287,7 @@ export function DomainSearch() {
         </div>
 
         {query && (
-          <div className="w-full max-w-[1400px] mx-auto px-6 mt-6">
+          <div className="w-full max-w-[1400px] mx-auto px-6 mt-4">
             <Tabs defaultValue="results" className="w-full">
               <TabsList className="w-full justify-start">
                 <TabsTrigger value="results" className="flex-1">Search Results</TabsTrigger>
@@ -300,7 +300,7 @@ export function DomainSearch() {
               <div className="mt-6 tabs-container">
                 <TabsContent value="results" className="min-h-[600px]">
                   <div className="space-y-6">
-                    <div className="flex items-center justify-between w-full">
+                    <div className="flex items-center justify-between w-full h-[36px]">
                       <div className="flex-1 mr-8">
                         <DomainFilters 
                           filters={filters} 
@@ -346,20 +346,11 @@ export function DomainSearch() {
                           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                             {isLoading ? (
                               // Show skeleton cards while loading
-                              Array.from({ length: 4 }).map((_, i) => (
+                              Array.from({ length: 2 }).map((_, i) => (
                                 <div 
                                   key={i} 
-                                  className={cn(
-                                    "p-3 rounded-lg border border-border/60 bg-white",
-                                    "flex items-center justify-between",
-                                    "animate-pulse"
-                                  )}
-                                >
-                                  <div className="flex items-center justify-between pr-8 w-full">
-                                    <div className="h-[18px] w-32 bg-neutral-100 rounded" />
-                                    <div className="h-[16px] w-14 bg-neutral-100 rounded" />
-                                  </div>
-                                </div>
+                                  className="h-[56px] rounded-lg border border-border/40 bg-neutral-50/50 animate-pulse"
+                                />
                               ))
                             ) : filterByPrice(semanticResults.hacks).length > 0 ? (
                               sortDomains(filterByPrice(semanticResults.hacks)).map(result => (
@@ -394,17 +385,8 @@ export function DomainSearch() {
                               Array.from({ length: 4 }).map((_, i) => (
                                 <div 
                                   key={i} 
-                                  className={cn(
-                                    "p-3 rounded-lg border border-border/60 bg-white",
-                                    "flex items-center justify-between",
-                                    "animate-pulse"
-                                  )}
-                                >
-                                  <div className="flex items-center justify-between pr-8 w-full">
-                                    <div className="h-[18px] w-32 bg-neutral-100 rounded" />
-                                    <div className="h-[16px] w-14 bg-neutral-100 rounded" />
-                                  </div>
-                                </div>
+                                  className="h-[56px] rounded-lg border border-border/40 bg-neutral-50/50 animate-pulse"
+                                />
                               ))
                             ) : filterByPrice(semanticResults.synonyms).length > 0 ? (
                               sortDomains(filterByPrice(semanticResults.synonyms)).map(result => (
@@ -439,17 +421,8 @@ export function DomainSearch() {
                               Array.from({ length: 4 }).map((_, i) => (
                                 <div 
                                   key={i} 
-                                  className={cn(
-                                    "p-3 rounded-lg border border-border/60 bg-white",
-                                    "flex items-center justify-between",
-                                    "animate-pulse"
-                                  )}
-                                >
-                                  <div className="flex items-center justify-between pr-8 w-full">
-                                    <div className="h-[18px] w-32 bg-neutral-100 rounded" />
-                                    <div className="h-[16px] w-14 bg-neutral-100 rounded" />
-                                  </div>
-                                </div>
+                                  className="h-[56px] rounded-lg border border-border/40 bg-neutral-50/50 animate-pulse"
+                                />
                               ))
                             ) : filterByPrice(semanticResults.brandable).length > 0 ? (
                               sortDomains(filterByPrice(semanticResults.brandable)).map(result => (
