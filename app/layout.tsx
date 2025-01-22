@@ -3,6 +3,12 @@ import './globals.css'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Nav } from '@/components/nav'
 import { Footer } from '@/components/footer'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Vercel Domains Prototype',
+  description: 'A prototype for exploring domain names',
+}
 
 export default function RootLayout({
   children,
