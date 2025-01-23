@@ -300,8 +300,8 @@ export function DomainSearch() {
               <div className="mt-6 tabs-container">
                 <TabsContent value="results" className="min-h-[600px]">
                   <div className="space-y-6">
-                    <div className="flex items-center justify-between w-full h-[36px]">
-                      <div className="flex-1 mr-8">
+                    <div className="flex flex-wrap items-start justify-between w-full min-h-[36px] gap-y-4">
+                      <div className="flex-1 min-w-[280px] mr-4">
                         <DomainFilters 
                           filters={filters} 
                           onFiltersChange={setFilters}
@@ -349,8 +349,13 @@ export function DomainSearch() {
                               Array.from({ length: 2 }).map((_, i) => (
                                 <div 
                                   key={i} 
-                                  className="h-[56px] rounded-lg border border-border/40 bg-white animate-pulse"
-                                />
+                                  className="p-3 rounded-lg border border-border hover:border-foreground/20 bg-white"
+                                >
+                                  <div className="flex items-center justify-between pr-8">
+                                    <div className="w-32 h-5 bg-neutral-100 rounded animate-pulse" />
+                                    <div className="w-14 h-4 bg-neutral-100 rounded animate-pulse" />
+                                  </div>
+                                </div>
                               ))
                             ) : filterByPrice(semanticResults.hacks).length > 0 ? (
                               sortDomains(filterByPrice(semanticResults.hacks)).map(result => (
@@ -382,11 +387,16 @@ export function DomainSearch() {
                           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                             {isLoading ? (
                               // Show skeleton cards while loading
-                              Array.from({ length: 4 }).map((_, i) => (
+                              Array.from({ length: 5 }).map((_, i) => (
                                 <div 
                                   key={i} 
-                                  className="h-[56px] rounded-lg border border-border/40 bg-white animate-pulse"
-                                />
+                                  className="p-3 rounded-lg border border-border hover:border-foreground/20 bg-white"
+                                >
+                                  <div className="flex items-center justify-between pr-8">
+                                    <div className="w-32 h-4 bg-neutral-100 rounded animate-pulse" />
+                                    <div className="w-14 h-3.5 bg-neutral-100 rounded animate-pulse" />
+                                  </div>
+                                </div>
                               ))
                             ) : filterByPrice(semanticResults.synonyms).length > 0 ? (
                               sortDomains(filterByPrice(semanticResults.synonyms)).map(result => (
@@ -418,11 +428,16 @@ export function DomainSearch() {
                           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                             {isLoading ? (
                               // Show skeleton cards while loading
-                              Array.from({ length: 4 }).map((_, i) => (
+                              Array.from({ length: 5 }).map((_, i) => (
                                 <div 
                                   key={i} 
-                                  className="h-[56px] rounded-lg border border-border/40 bg-white animate-pulse"
-                                />
+                                  className="p-3 rounded-lg border border-border hover:border-foreground/20 bg-white"
+                                >
+                                  <div className="flex items-center justify-between pr-8">
+                                    <div className="w-32 h-4 bg-neutral-100 rounded animate-pulse" />
+                                    <div className="w-14 h-3.5 bg-neutral-100 rounded animate-pulse" />
+                                  </div>
+                                </div>
                               ))
                             ) : filterByPrice(semanticResults.brandable).length > 0 ? (
                               sortDomains(filterByPrice(semanticResults.brandable)).map(result => (
