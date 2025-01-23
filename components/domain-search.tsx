@@ -349,7 +349,7 @@ export function DomainSearch() {
                               Array.from({ length: 2 }).map((_, i) => (
                                 <div 
                                   key={i} 
-                                  className="h-[56px] rounded-lg border border-border/40 bg-neutral-50/50 animate-pulse"
+                                  className="h-[56px] rounded-lg border border-border/40 bg-white animate-pulse"
                                 />
                               ))
                             ) : filterByPrice(semanticResults.hacks).length > 0 ? (
@@ -385,7 +385,7 @@ export function DomainSearch() {
                               Array.from({ length: 4 }).map((_, i) => (
                                 <div 
                                   key={i} 
-                                  className="h-[56px] rounded-lg border border-border/40 bg-neutral-50/50 animate-pulse"
+                                  className="h-[56px] rounded-lg border border-border/40 bg-white animate-pulse"
                                 />
                               ))
                             ) : filterByPrice(semanticResults.synonyms).length > 0 ? (
@@ -421,7 +421,7 @@ export function DomainSearch() {
                               Array.from({ length: 4 }).map((_, i) => (
                                 <div 
                                   key={i} 
-                                  className="h-[56px] rounded-lg border border-border/40 bg-neutral-50/50 animate-pulse"
+                                  className="h-[56px] rounded-lg border border-border/40 bg-white animate-pulse"
                                 />
                               ))
                             ) : filterByPrice(semanticResults.brandable).length > 0 ? (

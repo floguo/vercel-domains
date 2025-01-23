@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button"
 
 export function Nav() {
   return (
-    <header className="flex h-16 items-center px-6 py-3 bg-white border-b border-border/60">
+    <header className="flex h-16 items-center px-6 py-3 bg-white border-b border-border/30">
       <div className="flex items-center gap-2">
         <Link href="/" className="flex items-center">
-          <svg height="20" viewBox="0 0 76 65" fill="currentColor">
+          <svg height="22" viewBox="0 0 76 65" fill="currentColor">
             <path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/>
           </svg>
         </Link>
@@ -27,7 +27,7 @@ export function Nav() {
             fill="currentColor" 
           />
         </svg>
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/floguo%20pfp-F5sEHfsn1XqOlPZcZwpePSTDhAT0Kc.jpeg"
@@ -62,25 +62,27 @@ export function Nav() {
           </div>
         </div>
       </div>
-      <div className="ml-auto flex items-center gap-4">
-        <Button
-          variant="outline"
-          size="sm"
-          className="h-8 rounded-md px-3 text-[14px] text-neutral-500 shadow-none border border-neutral-200 font-light bg-white hover:bg-neutral-50"
-        >
-          Feedback
-        </Button>
-        <nav className="flex items-center gap-4">
-          <Link href="#" className="text-[14px] font-light text-muted-foreground hover:text-foreground">
-            Changelog
-          </Link>
-          <Link href="#" className="text-[14px] font-light text-muted-foreground hover:text-foreground">
-            Help
-          </Link>
-          <Link href="#" className="text-[14px] font-light text-muted-foreground hover:text-foreground">
-            Docs
-          </Link>
-        </nav>
+      <div className="ml-auto flex items-center gap-2">
+        <div className="flex items-center gap-4 mr-6">
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-8 rounded-md px-3 text-[14px] text-neutral-500 shadow-none border border-neutral-200 font-light bg-white hover:bg-neutral-50"
+          >
+            Feedback
+          </Button>
+          <nav className="flex items-center gap-4">
+            <Link href="#" className="text-[14px] font-light text-muted-foreground hover:text-foreground">
+              Changelog
+            </Link>
+            <Link href="#" className="text-[14px] font-light text-muted-foreground hover:text-foreground">
+              Help
+            </Link>
+            <Link href="#" className="text-[14px] font-light text-muted-foreground hover:text-foreground">
+              Docs
+            </Link>
+          </nav>
+        </div>
         <Image
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/floguo%20pfp-F5sEHfsn1XqOlPZcZwpePSTDhAT0Kc.jpeg"
           alt="User"
