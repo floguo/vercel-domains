@@ -300,8 +300,8 @@ export function DomainSearch() {
               <div className="mt-6 tabs-container">
                 <TabsContent value="results" className="min-h-[600px]">
                   <div className="space-y-6">
-                    <div className="flex flex-wrap items-start justify-between w-full min-h-[36px] gap-y-4">
-                      <div className="flex-1 min-w-[280px] mr-4">
+                    <div className="flex flex-wrap items-start justify-between w-full gap-y-4">
+                      <div className="flex-1 min-w-[280px] mr-4 h-[36px]">
                         <DomainFilters 
                           filters={filters} 
                           onFiltersChange={setFilters}
