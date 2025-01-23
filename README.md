@@ -1,24 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Domain Search UI Exploration
 
-## Getting Started
+A personal exploration project experimenting with domain search user interfaces. This is not affiliated with or endorsed by Vercel in any way.
 
-First, run the development server:
+## Overview
+
+This project explores modern approaches to domain search and discovery, including:
+
+- Semantic search for finding related domains
+- Domain hack suggestions (e.g., "spotify" → "spoti.fy")
+- Similar word variations
+- Brandable alternatives
+- Social handle availability checking
+- Domain comparison tools
+
+## Features
+
+- 🔍 Smart search with semantic understanding
+- 🎨 Clean, responsive interface
+- ⚡️ Fast, client-side filtering and sorting
+- 💫 Smooth loading states and transitions
+- 🔖 Domain bookmarking and comparison
+- 📱 Mobile-friendly design
+
+## Tech Stack
+
+- [Next.js 14](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Radix UI](https://www.radix-ui.com/) for accessible components
+- [Geist Font](https://vercel.com/font)
+
+## Development
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Disclaimer
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This is a personal project created for exploration and learning purposes only. All trademarks and brand elements belong to their respective owners.
 
 ## Learn More
 
