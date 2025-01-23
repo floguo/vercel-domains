@@ -5,29 +5,29 @@ import { Button } from "@/components/ui/button"
 
 export function Nav() {
   return (
-    <header className="flex h-16 items-center px-6 py-3">
-      <div className="flex items-center gap-4">
+    <header className="flex h-16 items-center px-6 py-3 bg-white border-b border-border/60">
+      <div className="flex items-center gap-2">
         <Link href="/" className="flex items-center">
           <svg height="20" viewBox="0 0 76 65" fill="currentColor">
             <path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/>
           </svg>
         </Link>
-          <svg 
-            width="24" 
-            height="24" 
-            viewBox="0 0 16 16" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg" 
-            className="text-border/70"
-          >
-              <path 
-                fill-rule="evenodd" 
-                clip-rule="evenodd" 
-                d="M4.01526 15.3939L4.3107 14.7046L10.3107 0.704556L10.6061 0.0151978L11.9849 0.606077L11.6894 1.29544L5.68942 15.2954L5.39398 15.9848L4.01526 15.3939Z" 
-                fill="currentColor" 
-              />
-          </svg>
-        <div className="flex items-center gap-2">
+        <svg 
+          width="24" 
+          height="24" 
+          viewBox="0 0 16 16" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg" 
+          className="text-border/70"
+        >
+          <path 
+            fill-rule="evenodd" 
+            clip-rule="evenodd" 
+            d="M4.01526 15.3939L4.3107 14.7046L10.3107 0.704556L10.6061 0.0151978L11.9849 0.606077L11.6894 1.29544L5.68942 15.2954L5.39398 15.9848L4.01526 15.3939Z" 
+            fill="currentColor" 
+          />
+        </svg>
+        <div className="flex items-center gap-1.5">
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/floguo%20pfp-F5sEHfsn1XqOlPZcZwpePSTDhAT0Kc.jpeg"
@@ -62,30 +62,30 @@ export function Nav() {
           </div>
         </div>
       </div>
-      <div className="ml-auto flex items-center gap-6">
+      <div className="ml-auto flex items-center gap-4">
         <Button
           variant="outline"
           size="sm"
-          className="h-9 rounded-md px-4 text-sm text-neutral-500 shadow-none border border-neutral-200 font-normal bg-white hover:bg-neutral-50"
+          className="h-8 rounded-md px-3 text-[14px] text-neutral-500 shadow-none border border-neutral-200 font-light bg-white hover:bg-neutral-50"
         >
           Feedback
         </Button>
-        <nav className="flex items-center gap-6">
-          <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
+        <nav className="flex items-center gap-4">
+          <Link href="#" className="text-[14px] font-light text-muted-foreground hover:text-foreground">
             Changelog
           </Link>
-          <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
+          <Link href="#" className="text-[14px] font-light text-muted-foreground hover:text-foreground">
             Help
           </Link>
-          <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
+          <Link href="#" className="text-[14px] font-light text-muted-foreground hover:text-foreground">
             Docs
           </Link>
         </nav>
         <Image
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/floguo%20pfp-F5sEHfsn1XqOlPZcZwpePSTDhAT0Kc.jpeg"
           alt="User"
-          width={32}
-          height={32}
+          width={28}
+          height={28}
           className="rounded-full"
         />
       </div>

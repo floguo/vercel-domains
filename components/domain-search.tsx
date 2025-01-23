@@ -259,8 +259,8 @@ export function DomainSearch() {
     <div className="flex-1 flex flex-col">
       <div className={`flex-1 ${
         query 
-          ? 'pt-16 pb-24 min-h-[1800px]' 
-          : 'flex items-center justify-center'
+          ? 'pt-16 pb-24 min-h-screen'
+          : 'flex items-center justify-center -mt-24'
       }`}>
         <div className={`${query ? 'w-full max-w-[1400px] mx-auto' : 'w-full max-w-[800px]'} px-6 space-y-6`}>
           {!query && (
@@ -473,12 +473,12 @@ export function DomainSearch() {
                     </div>
                     {bookmarkedDomains.size === 0 ? (
                       <div className="text-center py-16 px-4 border border-border rounded-lg bg-white">
-                        <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-muted mb-4">
+                        <div className="inline-flex h-14 w-14 items-center justify-center rounded-lg border border-border bg-white mb-6">
                           <Bookmark className="h-6 w-6 text-muted-foreground" />
                         </div>
-                        <h3 className="text-lg font-medium mb-2">No bookmarked domains</h3>
-                        <p className="text-sm text-muted-foreground mb-4">
-                          Save domains to easily compare them.
+                        <h3 className="text-lg font-medium mb-3">No bookmarked domains</h3>
+                        <p className="text-base text-muted-foreground">
+                          Save domains to easily compare them
                         </p>
                       </div>
                     ) : isComparing ? (

@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className="bg-[#fafafa] min-h-screen flex flex-col">
         <TooltipProvider>
           <Nav />
-          <main className="flex-1 flex flex-col">
+          <main className="flex-1 flex flex-col min-h-[calc(100vh-4rem)]">
             {children}
           </main>
           <Footer />
