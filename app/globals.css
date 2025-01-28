@@ -104,4 +104,14 @@
   h1, .font-semibold {
     font-weight: 550;
   }
+
+  ::selection {
+    background-color: rgb(0, 91, 237);
+    color: white;
+  }
+
+  ::-moz-selection {
+    background-color: rgb(0, 91, 237);
+    color: white;
+  }
 }
